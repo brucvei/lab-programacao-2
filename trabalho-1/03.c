@@ -8,6 +8,7 @@ triângulo foi formado: isósceles (dois lados iguais e um diferente), escaleno 
 
 #include "stdio.h"
 #include "stdlib.h"
+#include "string.h"
 
 typedef struct triangulo {
     int ladoA;
@@ -19,9 +20,9 @@ typedef struct triangulo {
 
 void verificaTriangulo (Triangulo t) {
     if (t.ladoA < t.ladoB + t.ladoC && t.ladoB < t.ladoA + t.ladoC && t.ladoC < t.ladoA + t.ladoB)
-        strcpy((char *) t.ehTriangulo, "S")
+        strcpy((char *) t.ehTriangulo, "S");
     else
-        t.ehTriangulo = *"N";
+        strcpy((char *) t.ehTriangulo, "N");
 }
 
 void verificaTipo(Triangulo t){
@@ -47,6 +48,7 @@ int main() {
 
     verificaTriangulo(t);
     if (t.ehTriangulo == "S") verificaTipo(t);
+    else printf("Nao e um triangulo");
 
     return 0;
 }
