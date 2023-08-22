@@ -18,22 +18,25 @@ typedef struct triangulo {
     char tipo[20];
 } Triangulo;
 
-void verificaTriangulo (Triangulo t) {
-    if (t.ladoA < t.ladoB + t.ladoC && t.ladoB < t.ladoA + t.ladoC && t.ladoC < t.ladoA + t.ladoB)
-        strcpy((char *) t.ehTriangulo, "S");
-    else
-        strcpy((char *) t.ehTriangulo, "N");
-}
-
 void verificaTipo(Triangulo t){
     if (t.ladoA == t.ladoB && t.ladoB == t.ladoC)
-        strcpy(t.tipo, "Equilatero");
+        puts("Equilatero");
     else if (t.ladoA == t.ladoB || t.ladoA == t.ladoC || t.ladoB == t.ladoC)
-        strcpy(t.tipo, "Isosceles");
+        puts("Isosceles");
     else
-        strcpy(t.tipo, "Escaleno");
+        puts("Escaleno");
+}
 
-    printf("O triangulo eh %s", t.tipo);
+Triangulo verificaTriangulo (Triangulo t) {
+    if (t.ladoA < t.ladoB + t.ladoC && t.ladoB < t.ladoA + t.ladoC && t.ladoC < t.ladoA + t.ladoB) {
+        strcpy(&t.ehTriangulo, "S");
+        verificaTipo(t);
+    } else {
+        strcpy(&t.ehTriangulo, "N");
+        puts("Não é um triângulo");
+    }
+
+    return t;
 }
 
 int main() {
@@ -47,8 +50,6 @@ int main() {
     scanf("%d", &t.ladoC);
 
     verificaTriangulo(t);
-    if (t.ehTriangulo == "S") verificaTipo(t);
-    else printf("Nao e um triangulo");
 
     return 0;
 }

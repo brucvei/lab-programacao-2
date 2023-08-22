@@ -39,13 +39,15 @@ void calculaMedia(int tamanho, Aluno *vet) {
     }
 }
 
-void verificaStatus(int tamanho, Aluno *vet) {
+Disciplina verificaStatus(int tamanho, Disciplina d) {
     for (int i = 0; i < tamanho; ++i) {
-        if (vet[i].media >= 6 && vet[i].aulasAssistidas >= 0.75 * 100)
-            vet[i].status = 'A';
+        if (d.vet[i].media >= 6.0 && d.vet[i].aulasAssistidas >= (0.75 * d.aulasMinistradas))
+            d.vet[i].status = 'A';
         else
-            vet[i].status = 'B';
+            d.vet[i].status = 'B';
     }
+
+    return d;
 }
 
 int main() {
@@ -55,10 +57,10 @@ int main() {
 
     leVetor(5, d.vet);
     calculaMedia(5, d.vet);
-    verificaStatus(5, d.vet);
+    d = verificaStatus(5, d);
 
     for (int i = 0; i < 5; ++i) {
-        printf("O aluno %d obteve media %.2f e status %c", i + 1, d.vet[i].media, d.vet[i].status);
+        printf("O aluno %d obteve media %.2f e status %c\n", i + 1, d.vet[i].media, d.vet[i].status);
     }
 
     return 0;

@@ -38,7 +38,7 @@ int calculaQtidadeLivros(int tamanho, Usuario *vet) {
 int calculaQtidadeMulheres(int tamanho, Usuario *vet) {
     int aux = 0;
     for (int i = 0; i < tamanho; ++i) {
-        if (vet[i].sexo == 'F' && vet[i].qtdade >= 5)
+        if (strcmp(&vet[i].sexo, (char *)'F') == 0 && vet[i].qtdade >= 5)
             aux++;
     }
     return aux;
