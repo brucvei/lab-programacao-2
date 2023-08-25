@@ -1,8 +1,8 @@
 /* Bruna Caetano - SI */
 
-#include "stdio.h"
-#include "stdlib.h"
-#include "string.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /* Escreva um programa em C que implemente um jogo de caça-palavras. O programa deve
 representar uma matriz de caracteres (alocada dinamicamente) de dimensão mxn e buscar a
@@ -13,48 +13,62 @@ diagonal, em qualquer sentido (direto ou reverso). */
 //
 //}
 
-void printMatrix(char **matriz, int heigth, int width){
-    for (int i = 0; i < heigth; ++i) {
-        for (int j = 0; j < width; ++j) {
-            puts(&matriz[i][j]);
+//void printMatrix(char **matriz, int heigth, int width) {
+//    for (int i = 0; i < width; ++i) {
+//        for (int j = 0; j < heigth; ++j) {
+//            puts(&matriz[i][j]);
+//        }
+//        puts("\n");
+//    }
+//}
+
+void fillMatrix(char **matriz, int heigth, int width) {
+    char aux;
+    printf("Insira a frase: ");
+
+    int i = 0;
+    while (((aux = getchar()) != '\n' && aux != EOF) || i < heigth){
+        int j = 0;
+        while (j < width) {
+            if (aux != ' ') {
+                matriz[i][j] = aux;
+                j++;
+            }
         }
-        puts("\n");
+        i++;
     }
+
+//    puts(*matriz);
 }
 
-void fillMatrix(char *string, char **matriz, int heigth, int width){
-    for (int i = 0; i < heigth; ++i) {
-        for (int j = 0; j < width; ++j) {
-            if (strcmp(&string[i], " ") != -1) strcpy(&matriz[i][j], &string[i]);
-        }
-    }
-}
+void startGame() {
+    int *altura = (int *) malloc(sizeof(int)),
+            *largura = (int *) malloc(sizeof(int));
+    char **matriz = (char **) malloc(sizeof(char *) * *largura);
 
-void startGame(){
-    int altura  = (int) malloc(sizeof (int)),
-        largura = (int) malloc(sizeof(int));
+    if (altura == NULL || largura == NULL || matriz == NULL) {
+        puts("Houve um erro inesperado. Tente novamente!");
+        exit(1);
+    }
 
     printf("Insira a altura da matriz: ");
-    scanf("%d", &altura);
+    scanf("%d", altura);
     printf("Insira a largura: ");
-    scanf("%d", &largura);
+    scanf("%d", largura);
 
-    char *string = (char *) malloc(sizeof(char) * altura * largura);
-    printf("Tamanho da string: %d\n", altura * largura);
-    printf("Digite a string para preencher o tabuleiro: ");
-//    scanf("%s", string);
-    gets(string);
-//    fgets(&string, altura * largura, stdin);
-    puts(string);
-//    fillMatrix(string, matriz, altura, largura);
+    puts("Insira as palavras que deseja encontrar: ");
+    fillMatrix(matriz, *altura, *largura);
+    puts("\nAAAAAAAAAAAAa");
 //    free((void *) string);
 //    printMatrix(matriz, altura, largura);
 
-//    free(matriz);
+    free(altura);
+    free(largura);
+    free(matriz);
 }
 
-int main(){
-    puts("Bem vindo ao jogo de caça-palavras!");
+int main() {
+    puts("\nBem vindo ao jogo de caça-palavras!\n");
     startGame();
 
     return 0;
