@@ -49,19 +49,20 @@ void run(JOGO partida) {
         maior = partida.width;
     }
 
-    char *chute = (char *) malloc(sizeof(char) * maior);
     do {
         printf("\nDigite seu chute: \n"
                "? - regras\n"
                "! - printar matriz\n"
                "# - Terminar o jogo\n"
                "- ");
+        char *chute = (char *) malloc(sizeof(char) * maior);
         scanf("%s", chute);
 
-        if      (strcmp(chute, "?") == 0) rules();
+        if (strcmp(chute, "?") == 0) rules();
         else if (strcmp(chute, "!") == 0) printMatrix(partida);
         else if (strcmp(chute, "#") == 0) partida.giveUp = true;
         else if (isspace(chute) == 0) process(partida, chute);
+        free(chute);
     } while (partida.giveUp == false);
 
     printMatrix(partida);
@@ -69,7 +70,6 @@ void run(JOGO partida) {
     puts("As palavras encontradas foram: ");
     printAllWords(partida);
 
-    free(chute);
     for (int i = 0; i < partida.quantity; ++i) {
         free(partida.finded[i]);
     }
@@ -213,7 +213,6 @@ void rules() {
 }
 
 void fillMatrix(JOGO partida) {
-    puts("-----------fillMatrix");
     char aux;
     int count = 0;
 
@@ -229,7 +228,7 @@ void fillMatrix(JOGO partida) {
                 partida.matriz[i][j] = tolower(aux);
                 j++;
                 count++;
-                printf("%d", count);
+                printf("%d ", count);
                 if (count == partida.width * partida.heigth) {
                     break;
                 }
@@ -240,7 +239,6 @@ void fillMatrix(JOGO partida) {
 }
 
 void printMatrix(JOGO partida) {
-    puts("-----------printMatrix");
     printf("\nMatriz:\n");
     for (int i = 0; i < partida.heigth; ++i) {
         for (int j = 0; j < partida.width; ++j) {
