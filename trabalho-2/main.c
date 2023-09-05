@@ -85,8 +85,9 @@ void process(JOGO partida, char *chute) {
     PONTO point = search(partida, chute);
     printf("point[x] -> %d\n", point.x);
     if (point.x != -1) {
-        partida.quantity++;
-        partida.finded = (PALAVRA *) malloc(sizeof(PALAVRA) * partida.quantity);
+        partida.quantity += 1;
+        printf("partida.quantity -> %d\n", partida.quantity);
+        partida.finded = (PALAVRA *) realloc(partida.finded, sizeof(PALAVRA) * partida.quantity);
         partida.finded[partida.quantity - 1].palavra = (char *) malloc(sizeof(char) * strlen(chute));
         strcpy(partida.finded[partida.quantity - 1].palavra, chute);
         partida.finded[partida.quantity - 1].point = point;
@@ -97,30 +98,17 @@ void process(JOGO partida, char *chute) {
 }
 
 PONTO search(JOGO partida, char *chute) {
+    PONTO h = horizontal(partida, chute);
+    if (h.x != -1) return h;
+
+    PONTO v = vertical(partida, chute);
+    if (v.x != -1) return v;
+
+    PONTO d = diagonal(partida, chute);
+    if (d.x != -1) return d;
+
     PONTO point;
     point.x = -1;
-
-    point = horizontal(partida, chute);
-    if (point.x != -1) {
-        puts("-----------Horizontal");
-        return point;
-    }
-
-    point = vertical(partida, chute);
-    printf("point[x] -> %d\n", point.x);
-    printf("point[y] -> %d\n", point.y);
-    printf("point[w] -> %d\n", point.w);
-    printf("point[z] -> %d\n", point.z);
-    if ((point.x != -1)) {
-        puts("-----------Vertical");
-        return point;
-    }
-//
-//    point = diagonal(partida, chute);
-//    if ((point.x != -1)) {
-//        puts("-----------Diagonal");
-//        return point;
-//    }
     return point;
 }
 
@@ -128,9 +116,6 @@ PONTO horizontal(JOGO partida, char *chute) {
     PONTO point;
     point.x = -1;
 
-    char *aux = (char *) malloc(sizeof(char) * strlen(chute));
-    strcpy(aux, chute);
-    invert(aux);
     int i = 0, size = strlen(chute);
     while (i < partida.heigth) {
         for (int j = 0; j < partida.width; ++j) {
@@ -138,18 +123,6 @@ PONTO horizontal(JOGO partida, char *chute) {
                 int k = 0;
                 while (k < size) {
                     if (partida.matriz[i][j + k] != chute[k]) break;
-                    k++;
-                }
-                if (k == size) {
-                    point.x = i;
-                    point.y = j;
-                    point.w = i;
-                    point.z = j + size - 1;
-                    return point;
-                }
-                k = 0;
-                while (k < size) {
-                    if (partida.matriz[i][j + k] != aux[k]) break;
                     k++;
                 }
                 if (k == size) {
@@ -169,108 +142,62 @@ PONTO horizontal(JOGO partida, char *chute) {
 PONTO vertical(JOGO partida, char *chute) {
    PONTO point;
     point.x = -1;
-    puts("AAAAAAAAAAAAAAAAAA");
-    char *aux = (char *) malloc(sizeof(char) * strlen(chute));
-    strcpy(aux, chute);
-    invert(aux);
+
     int i = 0, size = strlen(chute);
-    while (i < partida.width) {
-        for (int j = 0; j < partida.heigth; ++j) {
-            printf("%c ", partida.matriz[i][j]);
+    while (i < partida.heigth) {
+        for (int j = 0; j < partida.width; ++j) {
             if (partida.matriz[i][j] == chute[0]) {
                 int k = 0;
                 while (k < size) {
-                    if (partida.matriz[i][j + k] != chute[k]) break;
+                    if (partida.matriz[i + k][j] != chute[k]) break;
                     k++;
                 }
                 if (k == size) {
-                    point.x = i;
-                    point.y = j;
-                    point.w = i;
-                    point.z = j + size - 1;
-                    return point;
-                }
-                k = 0;
-                while (k < size) {
-                    if (partida.matriz[i][j + k] != aux[k]) break;
-                    k++;
-                }
-                if (k == size) {
-                    point.x = i;
-                    point.y = j;
-                    point.w = i;
-                    point.z = j + size - 1;
+                    point.x = j;
+                    point.y = i;
+                    point.w = j;
+                    point.z = i + size - 1;
                     return point;
                 }
             }
         }
-//        char *aux2 = (char *) malloc(sizeof(char) * partida.heigth);
-//        for (int j = 0; j < partida.heigth; ++j) {
-//            aux2[j] = partida.matriz[j][i];
-//        }
-//        if (strstr(aux2, chute) != NULL) {
-//            return true;
-//        }
-//        if (strstr(aux2, aux) != NULL) {
-//            return true;
-//        }
         i++;
     }
     return point;
 }
 
 PONTO diagonal(JOGO partida, char *chute) {
-    puts("-----------Diagonal");
-//    char *aux = (char *) malloc(sizeof(char) * strlen(chute));
-//    strcpy(aux, invert(chute));
-//    int i = 0;
-//    while (i < partida.heigth) {
-//        int j = 0;
-//        while (j < partida.width) {
-//            if (partida.matriz[i][j] == chute[0]) {
-//                int k = 0;
-//                while (k < strlen(chute)) {
-//                    if (partida.matriz[i + k][j + k] != chute[k]) {
-//                        break;
-//                    }
-//                    k++;
-//                }
-//                if (k == strlen(chute)) {
-//                    return true;
-//                }
-//                k = 0;
-//                while (k < strlen(chute)) {
-//                    if (partida.matriz[i + k][j + k] != aux[k]) {
-//                        break;
-//                    }
-//                    k++;
-//                }
-//                if (k == strlen(chute)) {
-//                    return true;
-//                }
-//            }
-//            j++;
-//        }
-//        i++;
-//    }
-}
+    PONTO point;
+    point.x = -1;
 
-char *invert(char *s) {
-    int length = strlen(s);
-    int c, i, j;
-
-    for (i = 0, j = length - 1; i < j; i++, j--) {
-        c = s[i];
-        s[i] = s[j];
-        s[j] = c;
+    int i = 0;
+    while (i < partida.heigth) {
+        for (int j = 0; j < partida.width; j++) {
+            if (partida.matriz[i][j] == chute[0]) {
+                int k = 0;
+                while (k < strlen(chute)) {
+                    if (partida.matriz[i + k][j + k] != chute[k])  break;
+                    k++;
+                }
+                if (k == strlen(chute)) {
+                    point.x = i;
+                    point.y = j;
+                    point.w = i + strlen(chute) - 1;
+                    point.z = j + strlen(chute) - 1;
+                    return point;
+                }
+            }
+        }
+        i++;
     }
-
-    return s;
+    return point;
 }
 
 void printAllWords(JOGO partida) {
     puts("----------- Palavras encontradas -----------");
+    printf("Foram encontradas %d palavras!\n", partida.quantity);
     for (int i = 0; i < partida.quantity; ++i) {
+        printf("%d. ", i + 1);
         printf("-> %s nos pontos (%d, %d), (%d, %d)\n", partida.finded[i].palavra, partida.finded[i].point.x,
                partida.finded[i].point.y, partida.finded[i].point.w, partida.finded[i].point.z);
     }

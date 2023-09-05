@@ -42,9 +42,6 @@ void rules();
 // Mostra todas as palavras encontradas
 void printAllWords(JOGO partida);
 
-// Inverte uma string
-char *invert(char *s);
-
 // Verifica se a palavra esta na diagonal da matriz
 PONTO diagonal(JOGO partida, char *chute);
 
