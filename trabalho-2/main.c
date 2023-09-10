@@ -48,7 +48,7 @@ void run(JOGO partida) {
         maior = partida.width;
     }
 
-    partida.finded = (PALAVRA *) malloc(sizeof(PALAVRA) * partida.quantity);
+    partida.finded = (PALAVRA *) malloc(sizeof(PALAVRA));
     do {
         fflush(stdin);
         printf("Digite seu chute: \n"
@@ -64,13 +64,11 @@ void run(JOGO partida) {
         else if (strcmp(chute, "!") == 0) printMatrix(partida);
         else if (strcmp(chute, "#") == 0) partida.giveUp = true;
         else if (strcmp(chute, "%") == 0) printAllWords(partida);
-        else if (strcmp(chute, "") != 0) process(partida, chute);
+        else if (strcmp(chute, "") != 0) process(&partida, chute);
         free(chute);
     } while (partida.giveUp == false);
 
     printMatrix(partida);
-    printf("\nForam encontradas %d palavras!\n", partida.quantity);
-    puts("As palavras encontradas foram: ");
     printAllWords(partida);
 
     for (int i = 0; i < partida.quantity; ++i) {
@@ -81,16 +79,17 @@ void run(JOGO partida) {
     puts("Até logo!");
 }
 
-void process(JOGO partida, char *chute) {
-    PONTO point = search(partida, chute);
-    printf("point[x] -> %d\n", point.x);
+void process(JOGO *partida, char *chute) {
+    PONTO point = search(*partida, chute);
     if (point.x != -1) {
-        partida.quantity += 1;
-        printf("partida.quantity -> %d\n", partida.quantity);
-        partida.finded = (PALAVRA *) realloc(partida.finded, sizeof(PALAVRA) * partida.quantity);
-        partida.finded[partida.quantity - 1].palavra = (char *) malloc(sizeof(char) * strlen(chute));
-        strcpy(partida.finded[partida.quantity - 1].palavra, chute);
-        partida.finded[partida.quantity - 1].point = point;
+        partida->quantity += 1;
+        partida->finded = (PALAVRA *) realloc(partida->finded, sizeof(PALAVRA) * partida->quantity);
+        partida->finded[partida->quantity - 1].palavra = (char *) malloc(sizeof(char) * strlen(chute));
+        strcpy(partida->finded[partida->quantity - 1].palavra, chute);
+        partida->finded[partida->quantity - 1].point.x = point.x;
+        partida->finded[partida->quantity - 1].point.y = point.y;
+        partida->finded[partida->quantity - 1].point.w = point.w;
+        partida->finded[partida->quantity - 1].point.z = point.z;
         puts("Palavra encontrada!");
     } else {
         puts("Palavra não encontrada!");
@@ -103,9 +102,6 @@ PONTO search(JOGO partida, char *chute) {
 
     PONTO v = vertical(partida, chute);
     if (v.x != -1) return v;
-
-    PONTO d = diagonal(partida, chute);
-    if (d.x != -1) return d;
 
     PONTO point;
     point.x = -1;
@@ -146,8 +142,8 @@ PONTO vertical(JOGO partida, char *chute) {
     int i = 0, size = strlen(chute);
     while (i < partida.heigth) {
         for (int j = 0; j < partida.width; ++j) {
+            int k = 0;
             if (partida.matriz[i][j] == chute[0]) {
-                int k = 0;
                 while (k < size) {
                     if (partida.matriz[i + k][j] != chute[k]) break;
                     k++;
@@ -157,34 +153,6 @@ PONTO vertical(JOGO partida, char *chute) {
                     point.y = i;
                     point.w = j;
                     point.z = i + size - 1;
-                    return point;
-                }
-            }
-        }
-        i++;
-    }
-    return point;
-}
-
-PONTO diagonal(JOGO partida, char *chute) {
-    PONTO point;
-    point.x = -1;
-
-    int i = 0;
-    while (i < partida.heigth) {
-        for (int j = 0; j < partida.width; j++) {
-            if (partida.matriz[i][j] == chute[0]) {
-                int k = 0;
-                while (k < strlen(chute)) {
-                    if (partida.matriz[i + k][j + k] != chute[k])  break;
-                    k++;
-                }
-                if (k == strlen(chute)) {
-                    point.x = i;
-                    point.y = j;
-                    point.w = i + strlen(chute) - 1;
-                    point.z = j + strlen(chute) - 1;
-                    return point;
                 }
             }
         }
@@ -197,20 +165,19 @@ void printAllWords(JOGO partida) {
     puts("----------- Palavras encontradas -----------");
     printf("Foram encontradas %d palavras!\n", partida.quantity);
     for (int i = 0; i < partida.quantity; ++i) {
-        printf("%d. ", i + 1);
-        printf("-> %s nos pontos (%d, %d), (%d, %d)\n", partida.finded[i].palavra, partida.finded[i].point.x,
+        printf("\"%s\" -> (%d, %d), (%d, %d)\n", partida.finded[i].palavra, partida.finded[i].point.x,
                partida.finded[i].point.y, partida.finded[i].point.w, partida.finded[i].point.z);
     }
 }
 
 void rules() {
-    puts("Regras:\n");
+    puts("\nRegras:\n");
     puts("1. O jogo consiste em encontrar palavras em uma matriz de caracteres.");
     puts("2. As palavras podem estar na direção horizontal, vertical ou diagonal, em qualquer sentido (direto ou reverso).");
     puts("3. As palavras podem estar em qualquer posição da matriz.");
     puts("4. As palavras podem se sobrepor.");
     puts("5. As palavras podem ser formadas por letras maiúsculas ou minúsculas.");
-    puts("6. O jogo termina quando o usuário digitar #.");
+    puts("6. O jogo termina quando o usuário digitar #.\n");
 }
 
 void fillMatrix(JOGO partida) {

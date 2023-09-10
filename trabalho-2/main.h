@@ -1,3 +1,5 @@
+/* Bruna Caetano - SI */
+
 /* Escreva um programa em C que implemente um jogo de caça-palavras. O programa deve
 representar uma matriz de caracteres (alocada dinamicamente) de dimensão mxn e buscar a
 ocorrência de palavras nesta matriz. As palavras podem estar na direção horizontal, vertical ou
@@ -42,9 +44,6 @@ void rules();
 // Mostra todas as palavras encontradas
 void printAllWords(JOGO partida);
 
-// Verifica se a palavra esta na diagonal da matriz
-PONTO diagonal(JOGO partida, char *chute);
-
 // Verifica se a palavra esta na vertical da matriz
 PONTO vertical(JOGO partida, char *chute);
 
@@ -55,7 +54,7 @@ PONTO horizontal(JOGO partida, char *chute);
 PONTO search(JOGO partida, char *chute);
 
 // Processa um chute do usuario
-void process(JOGO partida, char *chute);
+void process(JOGO *partida, char *chute);
 
 // Roda o jogo
 void run(JOGO partida);
