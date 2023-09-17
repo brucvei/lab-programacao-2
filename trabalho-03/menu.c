@@ -1,19 +1,18 @@
 /* Bruna Caetano - SI - 2023 */
 
 #include "menu.h"
-#include <lista.c>
-#include <manipulacao-datas.c>
 
 void listasLocacoesAtivas(ListaLocacao *listaLocacoes) {
     Date dataInicial, dataFinal;
     printf("Data inicial: ");
-    scanf("%d/%d/%d", &dataInicial.day, &dataInicial.month, &dataInicial.year);
+    scanf("%d %d %d", &dataInicial.day, &dataInicial.month, &dataInicial.year);
     printf("Data final: ");
-    scanf("%d/%d/%d", &dataFinal.day, &dataFinal.month, &dataFinal.year);
+    scanf("%d %d %d", &dataFinal.day, &dataFinal.month, &dataFinal.year);
     ListaLocacao *aux = listaLocacoes;
+    printf("Locações ativas no período de %d/%d/%d a %d/%d/%d:\n", dataInicial.day, dataInicial.month,
+           dataInicial.year, dataFinal.day, dataFinal.month, dataFinal.year);
     while (aux != NULL) {
-        if (compararDatas(dataInicial, aux->locacao.retirada) == true &&
-            compararDatas(aux->locacao.devolucao, dataFinal) == true) {
+        if (isBetweenDates(aux->locacao.retirada, dataInicial, dataFinal) == true) {
             printf("Cliente: %s\n", aux->locacao.cliente.nome);
             printf("Veículo: %s\n", aux->locacao.veiculo.modelo);
             printf("Retirada: %d/%d/%d\n", aux->locacao.retirada.day, aux->locacao.retirada.month,
@@ -32,6 +31,7 @@ void listarLocacoesCliente(ListaLocacao *listaLocacoes) {
     printf("CNH: ");
     scanf("%s", cliente.cnh);
     ListaLocacao *aux = listaLocacoes;
+    printf("Locações do cliente %s:\n", cliente.cnh);
     while (aux != NULL) {
         if (strcmp(aux->locacao.cliente.cnh, cliente.cnh) == 0) {
             printf("Cliente: %s\n", aux->locacao.cliente.nome);
@@ -48,6 +48,7 @@ void listarLocacoesCliente(ListaLocacao *listaLocacoes) {
 }
 
 void listarFaturamento(ListaLocacao *listaLocacoes) {
+    puts("Faturamento da locadora:");
     ListaLocacao *aux = listaLocacoes;
     float faturamento = 0;
     while (aux != NULL) {
@@ -185,5 +186,28 @@ void menuRelatorios(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, 
             printf("Opção inválida!\n");
             menuRelatorios(listaLocacoes, listaClientes, listaVeiculos);
             break;
+    }
+}
+
+int menuPrincipal(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, ListaVeiculo **listaVeiculos) {
+    int opcao;
+    printf("1 - Listas\n");
+    printf("2 - Relatórios\n");
+    printf("0 - Sair\n");
+    printf("Opção: ");
+    scanf("%d", &opcao);
+    switch (opcao) {
+        case 1:
+            menuListas(listaLocacoes, listaClientes, listaVeiculos);
+            return 1;
+        case 2:
+            menuRelatorios(listaLocacoes, listaClientes, listaVeiculos);
+            return 2;
+        case 0:
+            return 0;
+        default:
+            printf("Opção inválida!\n");
+            menuPrincipal(listaLocacoes, listaClientes, listaVeiculos);
+            return 0;
     }
 }

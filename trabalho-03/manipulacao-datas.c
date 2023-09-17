@@ -1,4 +1,4 @@
-/*Codigo gerado pelo ChatGPT
+/* Codigo gerado pelo ChatGPT
 Este programa permite ao usuário inserir duas datas no formato DD MM AAAA (dia, mês e ano) e, em seguida, calcula a diferença em dias
  entre essas duas datas. Certifique-se de inserir as datas no formato correto e observe que este programa não trata todos os casos
   possíveis (por exemplo, datas inválidas), mas deve funcionar bem para datas válidas.*/
@@ -7,7 +7,7 @@ Este programa permite ao usuário inserir duas datas no formato DD MM AAAA (dia,
 #include <stdbool.h>
 
 // Estrutura para representar uma data
-typedef struct date {
+typedef struct dates {
     int day;
     int month;
     int year;
@@ -44,11 +44,11 @@ int daysBetweenDates(Date date1, Date date2) {
     return difference;
 }
 
+bool isBetweenDates(Date date, Date startDate, Date endDate){
+    return daysBetweenDates(startDate, date) >= 0 && daysBetweenDates(date, endDate) >= 0;
+}
+
 bool compararDatas(Date data1, Date data2){
-//    if (data1.year == data2.year && data1.month == data2.month && data1.day == data2.day){
-//        return true;
-//    }
-//    return false;
     return data1.year == data2.year && data1.month == data2.month && data1.day == data2.day;
 }
 

@@ -3,7 +3,7 @@
 #ifndef TRABALHO_03_MENU_H
 #define TRABALHO_03_MENU_H
 
-#include "lista.h"
+#include <lista.c>
 
 // Funções
 
@@ -29,6 +29,6 @@ void menuListas(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, List
 void menuRelatorios(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, ListaVeiculo **listaVeiculos);
 
 /* Menu principal */
-void menuPrincipal(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, ListaVeiculo **listaVeiculos);
+int menuPrincipal(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, ListaVeiculo **listaVeiculos);
 
 #endif //TRABALHO_03_MENU_H

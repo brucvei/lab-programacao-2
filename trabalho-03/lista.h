@@ -57,6 +57,9 @@ ListaVeiculo inicializarVeiculos(ListaVeiculo **listaVeiculos);
 ListaCliente inicializarClientes(ListaCliente **listaClientes);
 ListaLocacao inicializarLocacoes(ListaLocacao **listaLocacoes);
 
+Veiculo *encontrarVeiculo(ListaVeiculo *listaVeiculos, char placa[]);
+Cliente *encontrarCliente(ListaCliente *listaClientes, char cnh[]);
+
 /* Cadastras veículo na lista */
 void cadastrarVeiculo(ListaVeiculo **listaVeiculos);
 
