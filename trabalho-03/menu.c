@@ -3,6 +3,7 @@
 #include "menu.h"
 
 void listasLocacoesAtivas(ListaLocacao *listaLocacoes) {
+    puts("\nListar locações ativas...");
     Date dataInicial, dataFinal;
     printf("Data inicial: ");
     scanf("%d %d %d", &dataInicial.day, &dataInicial.month, &dataInicial.year);
@@ -27,6 +28,7 @@ void listasLocacoesAtivas(ListaLocacao *listaLocacoes) {
 }
 
 void listarLocacoesCliente(ListaLocacao *listaLocacoes) {
+    puts("\nListar locações de um cliente...");
     Cliente cliente;
     printf("CNH: ");
     scanf("%s", cliente.cnh);
@@ -48,17 +50,23 @@ void listarLocacoesCliente(ListaLocacao *listaLocacoes) {
 }
 
 void listarFaturamento(ListaLocacao *listaLocacoes) {
-    puts("Faturamento da locadora:");
+    puts("\nListar faturamento...");
+    puts("\nFaturamento da locadora:");
     ListaLocacao *aux = listaLocacoes;
     float faturamento = 0;
-    while (aux != NULL) {
-        faturamento += aux->locacao.valor;
-        aux = aux->prox;
+    if (aux[0].locacao.valor == 0.00) {
+        puts("Nenhuma locação cadastrada!");
+    } else {
+        while (aux != NULL) {
+            faturamento += aux->locacao.valor;
+            aux = aux->prox;
+        }
     }
     printf("Faturamento: %.2f\n", faturamento);
 }
 
 void listarVeiculosMaisRodados(ListaVeiculo *listaVeiculos) {
+    puts("Listar os 3 veículos mais rodados...");
     ListaVeiculo *aux = listaVeiculos;
     ListaVeiculo *maisRodado = listaVeiculos;
     while (aux != NULL) {
@@ -98,6 +106,7 @@ void listarVeiculosMaisRodados(ListaVeiculo *listaVeiculos) {
 }
 
 void listarVeiculosDisponiveis(ListaVeiculo *listaVeiculos) {
+    puts("Listar veículos disponíveis...");
     ListaVeiculo *aux = listaVeiculos;
     while (aux != NULL) {
         if (aux->veiculo.disponibilidade == true) {
@@ -110,6 +119,7 @@ void listarVeiculosDisponiveis(ListaVeiculo *listaVeiculos) {
 }
 
 void menuListas(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, ListaVeiculo **listaVeiculos) {
+    puts("Menu de listas...");
     int opcao;
     printf("1 - Cadastrar veículo\n");
     printf("2 - Listar veículos\n");
@@ -146,14 +156,15 @@ void menuListas(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, List
         case 0:
             menuPrincipal(listaLocacoes, listaClientes, listaVeiculos);
             break;
-        default:
-            printf("Opção inválida!\n");
-            menuListas(listaLocacoes, listaClientes, listaVeiculos);
-            break;
+//        default:
+//            printf("Opção inválida!\n");
+//            menuListas(listaLocacoes, listaClientes, listaVeiculos);
+//            break;
     }
 }
 
 void menuRelatorios(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, ListaVeiculo **listaVeiculos) {
+    puts("Menu de relatórios...");
     int opcao;
     printf("1 - Listar locações ativas em um período de tempo\n");
     printf("2 - Listar locações já realizadas por um cliente\n");
@@ -182,14 +193,15 @@ void menuRelatorios(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, 
         case 0:
             menuPrincipal(listaLocacoes, listaClientes, listaVeiculos);
             break;
-        default:
-            printf("Opção inválida!\n");
-            menuRelatorios(listaLocacoes, listaClientes, listaVeiculos);
-            break;
+//        default:
+//            printf("Opção inválida!\n");
+//            menuRelatorios(listaLocacoes, listaClientes, listaVeiculos);
+//            break;
     }
 }
 
 int menuPrincipal(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, ListaVeiculo **listaVeiculos) {
+    puts("Menu principal...");
     int opcao;
     printf("1 - Listas\n");
     printf("2 - Relatórios\n");
@@ -205,9 +217,9 @@ int menuPrincipal(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, Li
             return 2;
         case 0:
             return 0;
-        default:
-            printf("Opção inválida!\n");
-            menuPrincipal(listaLocacoes, listaClientes, listaVeiculos);
-            return 0;
+//        default:
+//            printf("Opção inválida!\n");
+//            menuPrincipal(listaLocacoes, listaClientes, listaVeiculos);
+//            return 0;
     }
 }

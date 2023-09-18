@@ -3,7 +3,7 @@
 #ifndef TRABALHO_03_MENU_H
 #define TRABALHO_03_MENU_H
 
-#include <lista.c>
+#include "lista.h"
 
 // Funções
 

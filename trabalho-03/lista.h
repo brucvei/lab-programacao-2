@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <manipulacao-datas.c>
+#include "manipulacao-datas.h"
 
 // Structs
 typedef struct veiculo {
@@ -53,9 +53,9 @@ typedef struct lista3 {
 
 // Funções
 
-ListaVeiculo inicializarVeiculos(ListaVeiculo **listaVeiculos);
-ListaCliente inicializarClientes(ListaCliente **listaClientes);
-ListaLocacao inicializarLocacoes(ListaLocacao **listaLocacoes);
+ListaVeiculo* inicializarVeiculos(ListaVeiculo *listaVeiculos);
+ListaCliente* inicializarClientes(ListaCliente *listaClientes);
+ListaLocacao* inicializarLocacoes(ListaLocacao *listaLocacoes);
 
 Veiculo *encontrarVeiculo(ListaVeiculo *listaVeiculos, char placa[]);
 Cliente *encontrarCliente(ListaCliente *listaClientes, char cnh[]);
