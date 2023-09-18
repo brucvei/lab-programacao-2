@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <manipulacao-datas.c>
+#include "manipulacao-datas.h"
 
 // Structs
 typedef struct veiculo {
@@ -51,34 +51,41 @@ typedef struct lista3 {
     struct lista3 *prox;
 } ListaLocacao;
 
-// Funções
-
-ListaVeiculo inicializarVeiculos(ListaVeiculo **listaVeiculos);
-ListaCliente inicializarClientes(ListaCliente **listaClientes);
-ListaLocacao inicializarLocacoes(ListaLocacao **listaLocacoes);
+// Funções auxiliares
+ListaVeiculo *inicializarVeiculos(void);
+ListaCliente *inicializarClientes(void);
+ListaLocacao *inicializarLocacoes(void);
 
 Veiculo *encontrarVeiculo(ListaVeiculo *listaVeiculos, char placa[]);
 Cliente *encontrarCliente(ListaCliente *listaClientes, char cnh[]);
 
+int tamanhoLista(ListaVeiculo *listaVeiculo);
+
+void printarVeiculo(Veiculo *veiculo);
+void printarCliente(Cliente *cliente);
+void printarLocacao(Locacao *locacao);
+
+// Funções principais
 /* Cadastras veículo na lista */
 void cadastrarVeiculo(ListaVeiculo **listaVeiculos);
 
-/* Listar todos os veículos */
+/* Lista todos os veículos */
 void listarVeiculos(ListaVeiculo *listaVeiculos);
 
 /* Cadastras clientes na lista */
 void cadastrarCliente(ListaCliente **listaClientes);
 
-/* Listas todos os clientes */
+/* Lista todos os clientes */
 void listarClientes(ListaCliente *listaClientes);
 
-/* Locar veículos */
+/* Locar um veículos */
 void locarVeiculo(ListaLocacao **listaLocacoes, ListaVeiculo **listaVeiculos, ListaCliente **listaClientes);
 
-/* Devolver veículos */
+/* Devolver um veículo */
 void devolverVeiculo(ListaVeiculo **listaVeiculos, ListaLocacao **listaLocacoes);
 
 /* Listar todas as locações */
 void listarLocacoes(ListaLocacao *listaLocacoes);
+
 
 #endif //TRABALHO_03_LISTA_H
