@@ -13,8 +13,8 @@ void listasLocacoesAtivas(ListaLocacao *listaLocacoes);
 /* Lista todas as locações já realizadas por um cliente */
 void listarLocacoesCliente(ListaLocacao *listaLocacoes, ListaCliente *listaClientes);
 
-/* Lista o faturamento da locadora */
-void listarFaturamento(ListaLocacao *listaLocacoes);
+/* Lista o faturamento da locadora por mês */
+void listarFaturamentoMensal(ListaLocacao *listaLocacoes);
 
 /* Lista os 3 veículos mais rodados */
 void listarVeiculosMaisRodados(ListaVeiculo *listaVeiculos);

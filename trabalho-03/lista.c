@@ -131,9 +131,13 @@ void devolverVeiculo(ListaVeiculo **listaVeiculos, ListaLocacao **listaLocacoes)
         puts("Veículo não está locado!");
     } else {
         ListaVeiculo *aux = *listaVeiculos;
+        float km;
         while (aux != NULL) {
             if (strcmp(aux->veiculo.placa, placa) == 0) {
                 aux->veiculo.disponibilidade = true;
+                printf("Quilometragem percorrida: ");
+                scanf("%f", &km);
+                aux->veiculo.km += km;
                 break;
             }
             aux = aux->prox;
@@ -227,9 +231,9 @@ void printarCliente(Cliente *cliente){
 }
 
 void printarLocacao(Locacao *locacao){
-    printf("\nCliente:\n");
+    printf("\nCliente:");
     printarCliente(&locacao->cliente);
-    printf("Veículo:\n");
+    printf("\nVeículo:");
     printarVeiculo(&locacao->veiculo);
     printf("Data de retirada: %d/%d/%d\n", locacao->retirada.day, locacao->retirada.month, locacao->retirada.year);
     printf("Data de devolução: %d/%d/%d\n", locacao->devolucao.day, locacao->devolucao.month, locacao->devolucao.year);

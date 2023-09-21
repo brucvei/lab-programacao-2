@@ -13,7 +13,7 @@ void listasLocacoesAtivas(ListaLocacao *listaLocacoes) {
     printf("\nLocações ativas no período de %d/%d/%d a %d/%d/%d:\n", dataInicial.day, dataInicial.month,
            dataInicial.year, dataFinal.day, dataFinal.month, dataFinal.year);
     while (aux != NULL) {
-        if (isBetweenDates(aux->locacao.retirada, dataInicial, dataFinal) == true) {
+        if (isBetweenDates(aux->locacao.retirada, dataInicial, dataFinal) || isBetweenDates(aux->locacao.devolucao, dataInicial, dataFinal)) {
             printarLocacao(&aux->locacao);
             achou++;
         }
@@ -43,15 +43,22 @@ void listarLocacoesCliente(ListaLocacao *listaLocacoes, ListaCliente *listaClien
     }
 }
 
-void listarFaturamento(ListaLocacao *listaLocacoes) {
+void listarFaturamentoMensal(ListaLocacao *listaLocacoes) {
     puts("\nFaturamento da locadora:");
+    int mes, ano;
+    printf("Insira o mês: ");
+    scanf("%d", &mes);
+    printf("Insira o ano: ");
+    scanf("%d", &ano);
     ListaLocacao *aux = listaLocacoes;
     float faturamento = 0;
     if (aux[0].locacao.valor == 0.00) {
         puts("Nenhuma locação cadastrada!");
     } else {
         while (aux != NULL) {
-            faturamento += aux->locacao.valor;
+            if (aux->locacao.devolucao.month == mes && aux->locacao.devolucao.year == ano) {
+                faturamento += aux->locacao.valor;
+            }
             aux = aux->prox;
         }
     }
@@ -180,7 +187,7 @@ void menuRelatorios(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, 
             listarLocacoesCliente(*listaLocacoes, *listaClientes);
             break;
         case 3:
-            listarFaturamento(*listaLocacoes);
+            listarFaturamentoMensal(*listaLocacoes);
             break;
         case 4:
             listarVeiculosMaisRodados(*listaVeiculos);
