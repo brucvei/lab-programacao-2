@@ -3,7 +3,7 @@
 
 //Funções principais
 void cadastrarVeiculo(ListaVeiculo **listaVeiculos) {
-    puts("Insira informações sobre o veículo:");
+    puts("\nInsira informações sobre o veículo:");
     ListaVeiculo *novoVeiculo = (ListaVeiculo *) malloc(sizeof(ListaVeiculo));
     printf("Placa: ");
     scanf("%s", novoVeiculo->veiculo.placa);
@@ -124,8 +124,11 @@ void devolverVeiculo(ListaVeiculo **listaVeiculos, ListaLocacao **listaLocacoes)
     char placa[8];
     printf("Placa: ");
     scanf("%s", placa);
-    if (!encontrarVeiculo(*listaVeiculos, placa)) {
+    Veiculo encontrado = *encontrarVeiculo(*listaVeiculos, placa);
+    if (strcmp(encontrado.placa, placa) != 0) {
         puts("Veículo não cadastrado!");
+    } else if(encontrado.disponibilidade == true) {
+        puts("Veículo não está locado!");
     } else {
         ListaVeiculo *aux = *listaVeiculos;
         while (aux != NULL) {
@@ -176,7 +179,6 @@ ListaLocacao *inicializarLocacoes(void) {
 }
 
 Veiculo *encontrarVeiculo(ListaVeiculo *listaVeiculos, char placa[]) {
-    puts("\nEncontrando veículo...");
     ListaVeiculo *aux = listaVeiculos;
     while (aux != NULL) {
         if (strcmp(aux->veiculo.placa, placa) == 0) {
@@ -187,10 +189,21 @@ Veiculo *encontrarVeiculo(ListaVeiculo *listaVeiculos, char placa[]) {
     return NULL;
 }
 
+Cliente *encontrarCliente(ListaCliente *listaClientes, char cnh[]) {
+    ListaCliente *aux = listaClientes;
+    while (aux != NULL) {
+        if (strcmp(aux->cliente.cnh, cnh) == 0) {
+            return &aux->cliente;
+        }
+        aux = aux->prox;
+    }
+    return NULL;
+}
+
 int tamanhoLista(ListaVeiculo *listaVeiculo) {
     ListaVeiculo *aux = listaVeiculo;
     int length = 0;
-    while (aux != NULL) {
+    while (strcmp(aux->veiculo.placa, "") != 0) {
         length++;
         aux = aux->prox;
     }
@@ -198,30 +211,27 @@ int tamanhoLista(ListaVeiculo *listaVeiculo) {
 }
 
 void printarVeiculo(Veiculo *veiculo){
-    printf("Placa: %s\n", veiculo->placa);
+    printf("\nPlaca: %s\n", veiculo->placa);
     printf("Marca: %s\n", veiculo->marca);
     printf("Modelo: %s\n", veiculo->modelo);
     printf("Ano: %d\n", veiculo->ano);
     printf("Kilometragem: %.2f\n", veiculo->km);
     printf("Valor da diaria: %.2f\n", veiculo->valor);
     printf("Disponibilidade: %s\n", veiculo->disponibilidade ? "Disponível" : "Indisponível");
-    printf("\n");
 }
 
 void printarCliente(Cliente *cliente){
-    printf("CNH: %s\n", cliente->cnh);
+    printf("\nCNH: %s\n", cliente->cnh);
     printf("Nome: %s\n", cliente->nome);
     printf("Telefone: %s\n", cliente->telefone);
-    printf("\n");
 }
 
 void printarLocacao(Locacao *locacao){
-    printf("Cliente:\n");
+    printf("\nCliente:\n");
     printarCliente(&locacao->cliente);
     printf("Veículo:\n");
     printarVeiculo(&locacao->veiculo);
     printf("Data de retirada: %d/%d/%d\n", locacao->retirada.day, locacao->retirada.month, locacao->retirada.year);
     printf("Data de devolução: %d/%d/%d\n", locacao->devolucao.day, locacao->devolucao.month, locacao->devolucao.year);
     printf("Valor: %.2f\n", locacao->valor);
-    printf("\n");
 }

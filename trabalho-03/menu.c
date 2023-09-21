@@ -4,18 +4,23 @@
 
 void listasLocacoesAtivas(ListaLocacao *listaLocacoes) {
     Date dataInicial, dataFinal;
+    int achou = 0;
     printf("Data inicial (DD MM AAAA): ");
     scanf("%d %d %d", &dataInicial.day, &dataInicial.month, &dataInicial.year);
     printf("Data final (DD MM AAAA): ");
     scanf("%d %d %d", &dataFinal.day, &dataFinal.month, &dataFinal.year);
     ListaLocacao *aux = listaLocacoes;
-    printf("Locações ativas no período de %d/%d/%d a %d/%d/%d:\n", dataInicial.day, dataInicial.month,
+    printf("\nLocações ativas no período de %d/%d/%d a %d/%d/%d:\n", dataInicial.day, dataInicial.month,
            dataInicial.year, dataFinal.day, dataFinal.month, dataFinal.year);
     while (aux != NULL) {
         if (isBetweenDates(aux->locacao.retirada, dataInicial, dataFinal) == true) {
             printarLocacao(&aux->locacao);
+            achou++;
         }
         aux = aux->prox;
+    }
+    if (achou == 0) {
+        puts("Nenhuma locação ativa no período informado!\n");
     }
 }
 
@@ -54,11 +59,11 @@ void listarFaturamento(ListaLocacao *listaLocacoes) {
 }
 
 void listarVeiculosMaisRodados(ListaVeiculo *listaVeiculos) {
-    puts("Listar os 3 veículos mais rodados:");
+    puts("\nListar os 3 veículos mais rodados:");
     ListaVeiculo *aux = listaVeiculos;
     ListaVeiculo *maisRodado = listaVeiculos;
     int length = tamanhoLista(listaVeiculos);
-    if (length >= 1) {
+    if (length >= 1 && strcmp(aux->veiculo.placa, "") != 0) {
         while (strcmp(aux->veiculo.placa, "") != 0) {
             if (aux->veiculo.km > maisRodado->veiculo.km) {
                 maisRodado = aux;
@@ -90,18 +95,18 @@ void listarVeiculosMaisRodados(ListaVeiculo *listaVeiculos) {
                 }
                 printarVeiculo(&terceiroMaisRodado->veiculo);
             } else {
-                puts("Foi possível listar apenas 2 veículos!");
+                puts("\nFoi possível listar apenas 2 veículos!");
             }
         } else {
-            puts("Foi possível listar apenas 1 veículo!");
+            puts("\nFoi possível listar apenas 1 veículo!");
         }
     } else {
-        puts("Nenhum veículo cadastrado!");
+        puts("\nNenhum veículo cadastrado!");
     }
 }
 
 void listarVeiculosDisponiveis(ListaVeiculo *listaVeiculos) {
-    puts("Veículos disponíveis: ");
+    puts("\nVeículos disponíveis: ");
     ListaVeiculo *aux = listaVeiculos;
     if (strcmp(aux[0].veiculo.placa, "") == 0) {
         puts("Nenhum veículo encontrado!");
@@ -116,7 +121,7 @@ void listarVeiculosDisponiveis(ListaVeiculo *listaVeiculos) {
 }
 
 void menuListas(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, ListaVeiculo **listaVeiculos) {
-    puts("Escolha uma opção:");
+    puts("\nEscolha uma opção:");
     int opcao;
     printf("1 - Cadastrar veículo\n");
     printf("2 - Listar veículos\n");
@@ -157,7 +162,7 @@ void menuListas(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, List
 }
 
 void menuRelatorios(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, ListaVeiculo **listaVeiculos) {
-    puts("Escolha uma opção:");
+    puts("\nEscolha uma opção:");
     int opcao;
     printf("1 - Listar locações ativas em um período de tempo\n");
     printf("2 - Listar locações já realizadas por um cliente\n");
@@ -190,7 +195,7 @@ void menuRelatorios(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, 
 }
 
 int menuPrincipal(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, ListaVeiculo **listaVeiculos) {
-    puts("Escolha uma opção:");
+    puts("\nEscolha uma opção:");
     int opcao;
     printf("1 - Listas\n");
     printf("2 - Relatórios\n");

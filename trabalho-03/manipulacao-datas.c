@@ -4,7 +4,6 @@
 #include "manipulacao-datas.h"
 
 int daysBetweenDates(Date date1, Date date2) {
-    puts("daysBetweenDates");
     int days1 = date1.year * 365 + date1.day;
     int days2 = date2.year * 365 + date2.day;
 
@@ -35,27 +34,5 @@ int daysBetweenDates(Date date1, Date date2) {
 }
 
 bool isBetweenDates(Date date, Date startDate, Date endDate) {
-    puts("isBetweenDates");
     return daysBetweenDates(startDate, date) >= 0 && daysBetweenDates(date, endDate) >= 0;
 }
-
-bool compararDatas(Date data1, Date data2){
-    puts("compararDatas");
-    return data1.year == data2.year && data1.month == data2.month && data1.day == data2.day;
-}
-
-//int main() {
-//    Date date1, date2;
-//
-//    printf("Digite a primeira data (DD MM AAAA): ");
-//    scanf("%d %d %d", &date1.day, &date1.month, &date1.year);
-//
-//    printf("Digite a segunda data (DD MM AAAA): ");
-//    scanf("%d %d %d", &date2.day, &date2.month, &date2.year);
-//
-//    int difference = daysBetweenDates(date1, date2);
-//
-//    printf("A diferença em dias entre as duas datas é: %d\n", difference);
-//
-//    return 0;
-//}
