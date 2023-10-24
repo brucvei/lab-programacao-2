@@ -3,6 +3,8 @@
 #ifndef TRABALHO_04_TABLES_H
 #define TRABALHO_04_TABLES_H
 
+#include "stacks.h"
+
 /*
  * id        -> número da mesa
  * account   -> comanda
@@ -26,10 +28,10 @@ void freeTables(Table **tables, int l);
 int findAvailableTable(Table **tables, int l, int c);
 
 /* Encontra uma mesa disponivel para o grupo ou o coloca na fila de espera */
-void fillTable(Queue *line, Table **tables, int l, int c);
+void fillTable(Queue *line, Table **tables, int l, int c, int group);
 
 /* Libera a mesa / termina uma refeição */
-void releaseTable(Table **tables);
+void releaseTable(Table **tables, int l, int c);
 
 /* Mostra todas as mesas */
 void showTables(Table **tables, int l, int c);
@@ -37,5 +39,8 @@ void showTables(Table **tables, int l, int c);
 /* Limpa a mesa */
 void cleanTable(Table **tables, Stack *stack, int l, int c);
 
+/* Repõe pratos na mesa e fornece a opção de sentar um grupo*/
+void resetTable(Table **tables, Queue *line, Stack *stack, int l, int c);
 
+void printTable(Table table);
 #endif //TRABALHO_04_TABLES_H

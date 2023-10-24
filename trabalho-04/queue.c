@@ -7,26 +7,20 @@ void createLine(Queue *line) {
     line->last = NULL;
 }
 
-void insertGroup(Queue *line) {
+void insertGroup(Queue *line, int qntd) {
     Group *newRow = (Group *) malloc(sizeof(Group));
-
-    int qntd;
-    printf("Quantas pessoas tem no grupo? ");
-    scanf("%d", &qntd);
-
     newRow->qntd = qntd;
     newRow->next = NULL;
 
-    Queue *aux = line;
-    if (lineIsEmpty(aux)) {
+    if (lineIsEmpty(line)) {
         newRow->id = 1;
-        aux->first = newRow;
-    } else if (aux->last == NULL) {
-        newRow->id = aux->last->id + 1;
-        aux->last->next = newRow;
+        line->first = newRow;
+    } else if (line->last == NULL) {
+        newRow->id = line->last->id + 1;
+        line->last->next = newRow;
     }
-    aux->last = newRow;
-    puts("Grupo adicionado a fila de espera!");
+    line->last = newRow;
+    puts("Grupo adicionado a fila de espera!\n");
 }
 
 bool lineIsEmpty(Queue *line) {
@@ -35,7 +29,7 @@ bool lineIsEmpty(Queue *line) {
 
 void removeGroup(Queue *line) {
     if (lineIsEmpty(line)) {
-        puts("A fila está vazia!");
+        puts("A fila está vazia!\n");
     } else {
         Group *aux = line->first;
         line->first = aux->next;
@@ -44,20 +38,20 @@ void removeGroup(Queue *line) {
         }
 
         free(aux);
-        puts("Grupo removido com sucesso!");
+        puts("Grupo removido com sucesso!\n");
     }
 }
 
 void showLine(Queue *line) {
-    if (lineIsEmpty(line)) {
-        puts("A lista está vazia!");
-    } else {
-        Group *aux = line->first;
-        while (aux != NULL) {
-            printf("\nSenha %d: %d pessoas", aux->id, aux->qntd);
-            aux = aux->next;
-        }
+    int qntd = 0;
+    Group *aux = line->first;
+    while (aux != NULL) {
+        printf("%d pessoas\n", aux->id);
+        qntd += aux->qntd;
+        printf("Senha %d: %d pessoas\n", aux->id, aux->qntd);
+        aux = aux->next;
     }
+    printf("\n%d pessoas na fila de espera!\n", qntd);
 }
 
 void freeLine(Queue *line) {

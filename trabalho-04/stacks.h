@@ -3,7 +3,7 @@
 #ifndef TRABALHO_04_STACKS_H
 #define TRABALHO_04_STACKS_H
 
-#define SEATS 4
+#include "queue.h"
 
 typedef struct plates {
     int n;

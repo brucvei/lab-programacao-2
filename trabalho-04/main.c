@@ -1,7 +1,10 @@
 // Bruna e Lucas - SI
 
-#include "tables.c"
+#include "tables.h"
 
+// negócio p ignorar warnings de n return type
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wreturn-type"
 int menu(Queue *line, Table **tables, Stack *stack, int l, int c) {
     int opcao;
     puts("\nEscolha uma opção:");
@@ -11,22 +14,34 @@ int menu(Queue *line, Table **tables, Stack *stack, int l, int c) {
     puts("4 - Arrumar mesa.");
     puts("5 - Repor pratos.");
     puts("6 - Imprimir pilha de pratos, fila de espera e ocupação das mesas.");
-    puts("0 - Terminar programa.");
-    scanf("-> %d", &opcao);
+    printf("0 - Terminar programa. \n-> ");
+    scanf("%d", &opcao);
     switch (opcao) {
         case 1:
-            fillTable(line, tables, l, c);
+            fillTable(line, tables, l, c, 0);
+            return 1;
         case 2:
-            releaseTable(tables);
+            releaseTable(tables, l, c);
+            return 2;
         case 3:
             removeGroup(line);
+            return 3;
         case 4:
             cleanTable(tables, stack, l, c);
+            return 4;
         case 5:
-
+            resetTable(tables, line, stack, l, c);
+            return 5;
+        case 6:
+            showStack(stack);
+            showLine(line);
+            showTables(tables, l, c);
+            return 6;
+        case 0:
+            return 0;
     }
-    return opcao;
 }
+#pragma clang diagnostic pop
 
 int main() {
     int l, c;
@@ -52,6 +67,7 @@ int main() {
 
     freeTables(tables, l);
     freeLine(line);
+    freeStack(stack);
 
     return 0;
 }

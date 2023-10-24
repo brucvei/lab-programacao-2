@@ -18,6 +18,10 @@ typedef struct group {
     struct group *next;
 } Group;
 
+/* Fila de espera
+ * first -> primeiro da fila
+ * last  -> último da fila
+*/
 typedef struct queue {
     Group *first;
     Group *last;
@@ -26,7 +30,7 @@ typedef struct queue {
 void createLine(Queue *line);
 
 /* Insere um grupo na fila de espera pela quantidade de pessoas */
-void insertGroup(Queue *line);
+void insertGroup(Queue *line, int qntd);
 
 bool lineIsEmpty(Queue *line);
 
