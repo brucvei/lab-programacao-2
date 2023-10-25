@@ -90,7 +90,11 @@ void showTables(Table **tables, int l, int c) {
         int id;
         printf("Qual a mesa? \n-> ");
         scanf("%d", &id);
-        printTable(tables[(id - 1) / c][(id - 1) % c]);
+        if (id > l * c) {
+            puts("Mesa não existe!");
+        } else {
+            printTable(tables[(id - 1) / c][(id - 1) % c]);
+        }
     }
 }
 
@@ -99,11 +103,16 @@ void cleanTable(Table **tables, Stack *stack, int l, int c) {
     printf("Qual a mesa? \n-> ");
     scanf("%d", &id);
 
+    if (id > l * c) {
+        puts("Mesa não existe!");
+    } else {
+
     tables[(id - 1) / c][(id - 1) % c].clean = true;
     tables[(id - 1) / c][(id - 1) % c].available = false;
 
     push(stack);
     printf("Mesa %d limpa!\n", id);
+    }
 }
 
 void resetTable(Table **tables, Queue *line, Stack *stack, int l, int c) {
@@ -111,21 +120,26 @@ void resetTable(Table **tables, Queue *line, Stack *stack, int l, int c) {
     printf("Qual a mesa? \n-> ");
     scanf("%d", &id);
 
-    tables[(id - 1) / c][(id - 1) % c].available = true;
+    if (id > l * c) {
+        puts("Mesa não existe!");
+    } else {
 
-    pop(stack);
-    printf("Pratos repostos na mesa %d!\n", id);
-    int opcao;
-    printf("Deseja preencher a mesa com outro grupo? \n(1 - Sim / 0 - Não)\n-> ");
-    scanf("%d", &opcao);
-    if (opcao == 1) {
-        fillTable(line, tables, l, c, 0);
-    } else if (opcao == 0) {
-        printf("Mesa %d disponível!\n", id);
+        tables[(id - 1) / c][(id - 1) % c].available = true;
+
+        pop(stack);
+        printf("Pratos repostos na mesa %d!\n", id);
+        int opcao;
+        printf("Deseja preencher a mesa com outro grupo? \n(1 - Sim / 0 - Não)\n-> ");
+        scanf("%d", &opcao);
+        if (opcao == 1) {
+            fillTable(line, tables, l, c, 0); // ajustar aqui que n quero q tenha q digitar o grupo dnv
+        } else if (opcao == 0) {
+            printf("Mesa %d disponível!\n", id);
+        }
     }
 }
 
-void printTable(Table table){
+void printTable(Table table) {
     printf("\nMesa %d: ", table.id);
     printf("\nDisponível: %s ", table.available ? "Sim" : "Não");
     printf("\tLimpa: %s ", table.clean ? "Sim" : "Não");

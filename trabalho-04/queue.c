@@ -15,7 +15,7 @@ void insertGroup(Queue *line, int qntd) {
     if (lineIsEmpty(line)) {
         newRow->id = 1;
         line->first = newRow;
-    } else if (line->last == NULL) {
+    } else {
         newRow->id = line->last->id + 1;
         line->last->next = newRow;
     }
@@ -46,7 +46,6 @@ void showLine(Queue *line) {
     int qntd = 0;
     Group *aux = line->first;
     while (aux != NULL) {
-        printf("%d pessoas\n", aux->id);
         qntd += aux->qntd;
         printf("Senha %d: %d pessoas\n", aux->id, aux->qntd);
         aux = aux->next;
