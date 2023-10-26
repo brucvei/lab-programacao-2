@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <time.h>
 
 /* Fila de espera
  * id   -> senha
@@ -34,8 +35,8 @@ void insertGroup(Queue *line, int qntd);
 
 bool lineIsEmpty(Queue *line);
 
-/* Remove um grupo na fila de espera pele senha, ent pode ser de qualquer parte da fila */
-void removeGroup(Queue *line);
+/* Remove um grupo na fila de espera pela senha, ent pode ser de qualquer parte da fila */
+void removeGroup(Queue *line, int id);
 
 /* Printa toda a fila */
 void showLine(Queue *line);

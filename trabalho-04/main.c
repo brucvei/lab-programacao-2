@@ -14,7 +14,7 @@ int menu(Queue *line, Table **tables, Stack *stack, int l, int c) {
     puts("4 - Arrumar mesa.");
     puts("5 - Repor pratos.");
     puts("6 - Imprimir pilha de pratos, fila de espera e ocupação das mesas.");
-    printf("0 - Terminar programa. \n-> ");
+    printf("0 - Fechar restaurante. \n-> ");
     scanf("%d", &opcao);
     switch (opcao) {
         case 1:
@@ -24,7 +24,7 @@ int menu(Queue *line, Table **tables, Stack *stack, int l, int c) {
             releaseTable(tables, l, c);
             return 2;
         case 3:
-            removeGroup(line);
+            removeGroup(line, -1);
             return 3;
         case 4:
             cleanTable(tables, stack, l, c);
@@ -64,6 +64,8 @@ int main() {
     createStack(stack);
 
     while (menu(line, tables, stack, l, c) != 0);
+
+    puts("Expediente finalizado!\nAté mais!");
 
     freeTables(tables, l);
     freeLine(line);

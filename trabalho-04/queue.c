@@ -20,25 +20,46 @@ void insertGroup(Queue *line, int qntd) {
         line->last->next = newRow;
     }
     line->last = newRow;
-    puts("Grupo adicionado a fila de espera!\n");
+    puts("Grupo adicionado a fila de espera!");
 }
 
 bool lineIsEmpty(Queue *line) {
     return line->first == NULL;
 }
 
-void removeGroup(Queue *line) {
+void removeGroup(Queue *line, int id) {
     if (lineIsEmpty(line)) {
         puts("A fila está vazia!\n");
     } else {
-        Group *aux = line->first;
-        line->first = aux->next;
-        if (lineIsEmpty(line)) {
-            line->last = NULL;
+        int cod = id;
+        if (id == -1) {
+            printf("Qual a senha do grupo? \n-> ");
+            scanf("%d", &cod);
         }
 
+        Group *aux = line->first;
+        Group *prev = NULL;
+        while (aux != NULL) {
+            if (aux->id == cod) {
+                if (aux == line->first) {
+                    line->first = aux->next;
+                } else if (aux == line->last) {
+                    line->last = prev;
+                    prev->next = NULL;
+                } else {
+                    prev->next = aux->next;
+                }
+                puts("Grupo removido com sucesso!\n");
+                break;
+            }
+            prev = aux;
+            aux = aux->next;
+        }
+
+        if (aux == NULL)
+            puts("Senha não encontrada!\n");
+
         free(aux);
-        puts("Grupo removido com sucesso!\n");
     }
 }
 
@@ -47,10 +68,10 @@ void showLine(Queue *line) {
     Group *aux = line->first;
     while (aux != NULL) {
         qntd += aux->qntd;
-        printf("Senha %d: %d pessoas\n", aux->id, aux->qntd);
+        printf("\nSenha %d: %d pessoas", aux->id, aux->qntd);
         aux = aux->next;
     }
-    printf("\n%d pessoas na fila de espera!\n", qntd);
+    printf("\n%d pessoas na fila de espera!\n\n", qntd);
 }
 
 void freeLine(Queue *line) {

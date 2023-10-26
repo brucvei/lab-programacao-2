@@ -27,8 +27,11 @@ void freeTables(Table **tables, int l);
 /* Encontra a primeira mesa disponível */
 int findAvailableTable(Table **tables, int l, int c);
 
-/* Encontra uma mesa disponivel para o grupo ou o coloca na fila de espera */
-void fillTable(Queue *line, Table **tables, int l, int c, int group);
+/* Encontra uma mesa disponivel para o grupo ou o coloca na fila de espera
+ * -1 - primeiro da fila
+ *  0 - novo grupo
+ * >0 - qntd */
+void fillTable(Queue *line, Table **tables, int l, int c, int option);
 
 /* Libera a mesa / termina uma refeição */
 void releaseTable(Table **tables, int l, int c);
