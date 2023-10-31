@@ -1,4 +1,4 @@
-// Bruna e Lucas - SI
+// Bruna Caetano e Lucas Jost - SI
 
 #include "stacks.h"
 
@@ -8,7 +8,7 @@ void createStack(Stack *stack) {
 
 void push(Stack *stack) {
     Plates *newPlate = (Plates *) malloc(sizeof(Plates));
-    newPlate->n = 4;
+    newPlate->qnt = 4;
     newPlate->next = stack->top;
     stack->top = newPlate;
     puts("Pratos adicionados a pilha!\n");
@@ -30,7 +30,7 @@ void showStack(Stack *stack) {
     if (stack->top != NULL) {
         Plates *aux = stack->top;
         while (aux != NULL) {
-            qntd += aux->n;
+            qntd += aux->qnt;
             aux = aux->next;
         }
     }

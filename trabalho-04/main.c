@@ -1,10 +1,11 @@
-// Bruna e Lucas - SI
+// Bruna Caetano e Lucas Jost - SI
 
 #include "tables.h"
 
-// negócio p ignorar warnings de n return type
+// negócio p ignorar warnings de qnt return type
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wreturn-type"
+
 int menu(Queue *line, Table **tables, Stack *stack, int l, int c) {
     int opcao;
     puts("\nEscolha uma opção:");
@@ -21,7 +22,7 @@ int menu(Queue *line, Table **tables, Stack *stack, int l, int c) {
             fillTable(line, tables, l, c, 0);
             return 1;
         case 2:
-            releaseTable(tables, l, c);
+            releaseTable(tables, stack, l, c);
             return 2;
         case 3:
             removeGroup(line, -1);
@@ -41,6 +42,7 @@ int menu(Queue *line, Table **tables, Stack *stack, int l, int c) {
             return 0;
     }
 }
+
 #pragma clang diagnostic pop
 
 int main() {

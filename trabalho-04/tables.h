@@ -1,5 +1,4 @@
-// Bruna e Lucas - SI
-
+// Bruna Caetano e Lucas Jost - SI
 #ifndef TRABALHO_04_TABLES_H
 #define TRABALHO_04_TABLES_H
 
@@ -22,6 +21,8 @@ typedef struct {
 
 /* Cria matriz com as mesas */
 void createTables(Table **tables, int l, int c);
+
+/* Libera a memória */
 void freeTables(Table **tables, int l);
 
 /* Encontra a primeira mesa disponível */
@@ -34,7 +35,7 @@ int findAvailableTable(Table **tables, int l, int c);
 void fillTable(Queue *line, Table **tables, int l, int c, int option);
 
 /* Libera a mesa / termina uma refeição */
-void releaseTable(Table **tables, int l, int c);
+void releaseTable(Table **tables, Stack *stack, int l, int c);
 
 /* Mostra todas as mesas */
 void showTables(Table **tables, int l, int c);
@@ -45,5 +46,7 @@ void cleanTable(Table **tables, Stack *stack, int l, int c);
 /* Repõe pratos na mesa e fornece a opção de sentar um grupo*/
 void resetTable(Table **tables, Queue *line, Stack *stack, int l, int c);
 
+/* Printa uma mesa */
 void printTable(Table table);
+
 #endif //TRABALHO_04_TABLES_H

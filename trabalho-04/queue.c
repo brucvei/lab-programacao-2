@@ -1,4 +1,4 @@
-// Bruna e Lucas - SI
+// Bruna Caetano e Lucas Jost - SI
 
 #include "queue.h"
 

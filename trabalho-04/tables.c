@@ -1,4 +1,4 @@
-// Bruna e Lucas - SI
+// Bruna Caetano e Lucas Jost - SI
 
 #include "tables.h"
 
@@ -76,7 +76,7 @@ void fillTable(Queue *line, Table **tables, int l, int c, int option) {
     }
 }
 
-void releaseTable(Table **tables, int l, int c) {
+void releaseTable(Table **tables, Stack *stack, int l, int c) {
     int id;
     printf("Qual a mesa? \n-> ");
     scanf("%d", &id);
@@ -84,7 +84,10 @@ void releaseTable(Table **tables, int l, int c) {
     tables[(id - 1) / c][(id - 1) % c].account = 0;
     tables[(id - 1) / c][(id - 1) % c].sitting = 0;
     tables[(id - 1) / c][(id - 1) % c].available = true;
-    tables[(id - 1) / c][(id - 1) % c].clean = false;
+    tables[(id - 1) / c][(id - 1) % c].clean = true;
+
+    push(stack);
+
     printf("Mesa %d liberada!\n", id);
 }
 
