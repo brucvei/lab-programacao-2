@@ -1,0 +1,22 @@
+arvore binaria de busca
+
+no da arvore de cursos:
+    - chave
+    - nome
+    - centro
+    - lista de alunos
+    - ponteiro para o filho esquerdo
+    - ponteiro para o filho direito
+
+lista de alunos (ordenada por matricula):
+    - matricula
+    - nome
+    - ano de ingresso
+    - ponteiro para o proximo aluno
+
+1. inserção e exclusão de nós na árvore de cursos;
+2. impressão da árvore de cursos, ordenada pelo código do curso;
+3. inserção e exclusão de alunos matriculados em um determinado curso (informado pelo usuário);
+4. impressão da lista de alunos matriculados em um determinado curso (informado pelo usuário);
+5. impressão dos dados de vínculos entre alunos e cursos, incluindo: número de matrícula, nome do aluno,
+   nome do curso que o aluno está vinculado e o respectivo centro do curso.
