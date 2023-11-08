@@ -14,51 +14,47 @@
  * right    -> ponteiro para o filho direito
 */
 
-typedef struct course {
+typedef struct node {
     int code;
     char name[50];
     char center[50];
     List *students;
-} Course;
-
-typedef struct node {
-    Course course;
     struct node *left;
     struct node *right;
-} Tree;
+} Courses;
 
 // Cria uma árvore vazia
-Tree *createTree();
+Courses *createTree();
 
 // Libera o espaço alocado para a árvore
-void freeTree(Tree *tree);
+void freeTree(Courses *tree);
 
-void createCourse(Tree **tree);
+void createCourse(Courses *tree);
 // Insere um curso na árvore
-void insertCourse(Tree **tree, Course *course);
+void insertCourse(Courses *tree, Courses *course);
 
 // Deleta um curso da árvore
-void deleteCourse(Tree **tree);
+void deleteCourse(Courses **tree);
 
 // Printa apenas os códigos em forma de árvore
-void printTree2d(Tree *tree, int space);
+void printTree2d(Courses *tree, int space);
 
 // Printa a árvore em ordem de inserção
-void printTree(Tree *tree);
+void printTree(Courses *tree);
 
 // Printa em forma sequencial por código
-void printSequential(Tree *tree);
+void printSequential(Courses *tree);
 
 // Insere um aluno em um curso
-void insertStudentCourse(Tree **tree);
+void insertStudentCourse(Courses **tree);
 
 // Deleta um aluno de um curso
-void deleteStudentCourse(Tree **tree);
+void deleteStudentCourse(Courses **tree);
 
 // Printa os alunos de um curso
-void printStudentCourse(Tree **tree);
+void printStudentCourse(Courses **tree);
 
 // Printa todos os alunos matriculados e seus cursos
-void printAllStudents(Tree **tree);
+void printAllStudents(Courses **tree);
 
 #endif //TRABALHO_05_TREE_H

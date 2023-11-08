@@ -4,7 +4,7 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wreturn-type"
-int menu(Tree **tree){
+int menu(Courses **tree){
     int opcao;
     puts("\nEscolha uma opção:");
     puts("1 - Inserir um curso.");
@@ -18,7 +18,7 @@ int menu(Tree **tree){
     scanf("%d", &opcao);
     switch (opcao) { // NOLINT(*-multiway-paths-covered)
         case 1:
-            createCourse(tree);
+            createCourse(*tree);
             return 1;
         case 2:
             deleteCourse(tree);
@@ -46,7 +46,7 @@ int menu(Tree **tree){
 #pragma clang diagnostic pop
 
 int main(){
-    Tree *tree = createTree();
+    Courses *tree = createTree();
 
     while (menu(&tree) != 0);
 
