@@ -128,15 +128,13 @@ void printTree(Tree *tree) {
 
 void printSequential(Tree *tree) {
     puts("Printando cursos em ordem de código...");
-    Tree *aux = tree;
-    if (aux != NULL) {
-        printSequential(aux->left);
-        printf("Código: %d\n", aux->course.code);
-        printf("Nome: %s\n", aux->course.name);
-        printf("Centro: %s\n\n", aux->course.center);
-        printSequential(aux->right);
+    if (tree != NULL) {
+        printSequential(tree->left);
+        printf("Código: %d\n", tree->course.code);
+        printf("Nome: %s\n", tree->course.name);
+        printf("Centro: %s\n\n", tree->course.center);
+        printSequential(tree->right);
     }
-    free(aux);
 }
 
 void insertStudentCourse(Tree **tree) {
