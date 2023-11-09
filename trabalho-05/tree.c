@@ -6,44 +6,55 @@
 //    return NULL;
 //}
 
-//void freeTree(Node *tree) {
-//    if (tree != NULL) {
-//        freeTree(tree->left);
-//        freeTree(tree->right);
-//        freeList(tree->students);
-//        free(tree);
-//    }
-//}
+void freeTree(Node *tree) {
+    puts("freeTree");
+    if (tree != NULL) {
+        freeList(tree->course->students);
+        freeTree(tree->left);
+        freeTree(tree->right);
+        free(tree);
+    }
+}
 
-Node *newNode(Course *x) {
+Node *newNode(int code, char* name, char* center) {
+    puts("newNode");
     Node *temp;
     temp = malloc(sizeof(Node));
-    temp->course = x;
+    temp->course->code = code;
+    strcpy(temp->course->name, name);
+    strcpy(temp->course->center, center);
     temp->left = NULL;
     temp->right = NULL;
+    temp->course->students = createList();
+    printf("%d\n%s\n%s\n", temp->course->code, temp->course->name, temp->course->center);
     return temp;
 }
 
 Node *search(Node *root, int x) {
+    puts("search");
     if (root == NULL || root->course->code == x) return root;
     else if (x > root->course->code) return search(root->right, x);
     else return search(root ->left, x);
 }
 
-Node *insert(Node *root, Course *x) {
-    if (root == NULL) return newNode(x);
-    else if (x->code > root->course->code) root->right = insert(root->right, x);
-    else root->left = insert(root->left, x);
+Node *insert(Node *root, int code, char* name, char* center) {
+    puts("insert");
+    printf("%d\t%s\t%s\t", code, name, center);
+    if (root == NULL) return newNode(code, name, center);
+    else if (code > root->course->code) root->right = insert(root->right, code, name, center);
+    else root->left = insert(root->left, code, name, center);
     return root;
 }
 
 Node *minimum(Node *root) {
+    puts("minimum");
     if (root == NULL) return NULL;
     else if (root->left != NULL) return minimum(root->left);
     return root;
 }
 
 Node *delete(Node *root, int x) {
+    puts("delete");
     if (root == NULL) return NULL;
     if (x > root->course->code) root->right = delete(root->right, x);
     else if (x < root->course->code) root->left = delete(root->left, x);
@@ -67,9 +78,10 @@ Node *delete(Node *root, int x) {
 }
 
 void print(Node *root) {
+    puts("print");
     if (root != NULL) {
         print(root->left);
-        printf(" %d ", root->course->code);
+        printf("-%d ", root->course->code);
         print(root->right);
     }
 }
@@ -163,6 +175,7 @@ void print(Node *root) {
 //}
 //
 void printTree2d(Node *tree, int space) {
+    puts("printTree2d");
     if (tree != NULL) {
         space += 7;
         printTree2d(tree->right, space);
@@ -264,22 +277,22 @@ void printTree2d(Node *tree, int space) {
 //    }
 //}
 //
-void printAllStudents(Node **tree) {
-    puts("Listando todos os alunos...");
-    if (*tree == NULL)
-        printf("Não há cursos cadastrados!\n");
-    else {
-        printStudentCourse(&(*tree)->left);
-
-        List *aux = (*tree)->students;
-        while (aux->student != NULL) {
-            printOneStudent(*aux->student);
-            aux = aux->next;
-        }
-        printf("Código: %d\n", (*tree)->code);
-        printf("Nome: %s\n", (*tree)->name);
-        printf("Centro: %s\n\n", (*tree)->center);
-
-        printStudentCourse(&(*tree)->right);
-    }
-}
+//void printAllStudents(Node **tree) {
+//    puts("Listando todos os alunos...");
+//    if (*tree == NULL)
+//        printf("Não há cursos cadastrados!\n");
+//    else {
+//        printStudentCourse(&(*tree)->left);
+//
+//        List *aux = (*tree)->students;
+//        while (aux->student != NULL) {
+//            printOneStudent(*aux->student);
+//            aux = aux->next;
+//        }
+//        printf("Código: %d\n", (*tree)->code);
+//        printf("Nome: %s\n", (*tree)->name);
+//        printf("Centro: %s\n\n", (*tree)->center);
+//
+//        printStudentCourse(&(*tree)->right);
+//    }
+//}

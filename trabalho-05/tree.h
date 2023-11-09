@@ -16,8 +16,8 @@
 
 typedef struct course {
     int code;
-    char name[50];
-    char center[50];
+    char *name;
+    char *center;
     List *students;
 } Course;
 
@@ -42,7 +42,7 @@ void print(Node *root);
 //Node *createTree();
 
 // Libera o espaço alocado para a árvore
-//void freeTree(Node *tree);
+void freeTree(Node *tree);
 //
 //
 

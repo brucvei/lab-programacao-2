@@ -45,7 +45,7 @@ int menu(Node *tree){
 #pragma clang diagnostic pop
 
 int main(){
-    Node *tree;
+    Node *tree = NULL;
 
     while (menu(tree) != 0);
 

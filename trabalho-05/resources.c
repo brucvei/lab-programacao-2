@@ -4,19 +4,22 @@
 
 void createCourse(Node *tree) {
     Course *new = (Course *) malloc(sizeof(Course));
+    char *name = (char *) malloc(sizeof(char *) * 50), *center = (char *) malloc(sizeof(char *) * 50);
 
     printf("Digite o código do curso: ");
     scanf("%d", &new->code);
     fflush(stdin);
     printf("Digite o nome do curso: ");
     getchar();
-    scanf("%[^\n]", new->name);
+    scanf("%[^\n]", name);
     fflush(stdin);
     printf("Digite o centro do curso: ");
     getchar();
-    scanf("%[^\n]", new->center);
+    scanf("%[^\n]", center);
     fflush(stdin);
 
+    strcpy(new->name, name);
+    strcpy(new->center, center);
     new->students = createList();
 
     insert(tree, new);
@@ -93,5 +96,9 @@ void printStudentOfCourse(Node *tree){
 }
 
 void printStudentsOfAllCourses(Node *tree){
-
+    if (tree == NULL) return;
+    printStudentsOfAllCourses(tree->left);
+    printf("%s\n%d - %s\n", tree->course->name, tree->course->code, tree->course->center);
+    printStudents(tree->course->students);
+    printStudentsOfAllCourses(tree->right);
 }
