@@ -1,10 +1,10 @@
 // Bruna Caetano, Lucas Jost e Bruno Cantarelli - SI
 
-#include "tree.h"
+#include "resources.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wreturn-type"
-int menu(Courses **tree){
+int menu(Node **tree){
     int opcao;
     puts("\nEscolha uma opção:");
     puts("1 - Inserir um curso.");
@@ -18,26 +18,25 @@ int menu(Courses **tree){
     scanf("%d", &opcao);
     switch (opcao) { // NOLINT(*-multiway-paths-covered)
         case 1:
-            createCourse(*tree);
+            createCourse(tree);
             return 1;
         case 2:
-            deleteCourse(tree);
+            removeCourse(tree);
             return 1;
         case 3:
-//            printTree(*tree);
-            printSequential(*tree);
+            printCourses(tree);
             return 1;
         case 4:
-            insertStudentCourse(tree);
+            putStudentInCourse(tree);
             return 1;
         case 5:
-            deleteStudentCourse(tree);
+            removeStudentFromCourse(tree);
             return 1;
         case 6:
-            printStudentCourse(tree);
+            printStudentOfCourse(tree);
             return 1;
         case 7:
-            printAllStudents(tree);
+            printStudentsOfAllCourses(tree);
             return 1;
         case 0:
             return 0;
@@ -46,9 +45,9 @@ int menu(Courses **tree){
 #pragma clang diagnostic pop
 
 int main(){
-    Courses *tree = createTree();
+    Node *tree = createTree();
 
-    while (menu(&tree) != 0);
+    while (menu(tree) != 0);
 
     freeTree(tree);
 
