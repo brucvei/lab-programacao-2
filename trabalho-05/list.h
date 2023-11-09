@@ -46,10 +46,10 @@ void printOneStudent(Student student);
 void printStudents(List *list);
 
 // Inserer um aluno na lista
-void insertStudent(List **list);
+void insertStudent(List *list);
 
 // Deleta um aluno da lista
-void deleteStudent(List **list);
+void deleteStudent(List *list);
 
 // Libera o espaço alocado para a lista
 void freeList(List *list);

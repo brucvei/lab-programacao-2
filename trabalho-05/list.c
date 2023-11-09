@@ -68,7 +68,7 @@ void printStudents(List *list) {
 
 }
 
-void insertStudent(List **list) {
+void insertStudent(List *list) {
     puts("Inserindo aluno...");
     int id, year;
     char name[50];
@@ -80,7 +80,7 @@ void insertStudent(List **list) {
     printf("Digite o ano de ingresso do aluno: ");
     scanf("%d", &year);
 
-    if (existsStudent(*list, id)) {
+    if (existsStudent(list, id)) {
         printf("Matrícula já cadastrada!\n");
         return;
     }
@@ -90,15 +90,15 @@ void insertStudent(List **list) {
     strcpy(student->name, name);
     student->year = year;
     new->student = student;
-    new->next = *list;
-    *list = new;
+    new->next = list;
+    list = new;
     printf("Aluno inserido com sucesso!\n");
-    shellSort(*list, lengthStudents(*list));
+    shellSort(list, lengthStudents(list));
 }
 
-void deleteStudent(List **list) {
+void deleteStudent(List *list) {
     puts("Removendo aluno...");
-    List *aux = *list;
+    List *aux = list;
     List *prev = NULL;
     int id;
 
@@ -108,7 +108,7 @@ void deleteStudent(List **list) {
     if (aux == NULL) {
         printf("Lista vazia!\n");
         return;
-    } else if (!existsStudent(*list, id)) {
+    } else if (!existsStudent(list, id)) {
         printf("Matrícula não cadastrada!\n");
         return;
     }

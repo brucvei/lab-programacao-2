@@ -53,7 +53,7 @@ void print(Node *root);
 //void deleteCourse(Node **tree);
 //
 //// Printa apenas os códigos em forma de árvore
-//void printTree2d(Node *tree, int space);
+void printTree2d(Node *tree, int space);
 //
 //// Printa a árvore em ordem de inserção
 //void printTree(Node *tree);

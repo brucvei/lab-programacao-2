@@ -5,7 +5,7 @@
 
 #include "tree.h"
 
-void createCourse(Node **tree);
+void createCourse(Node *tree);
 
 void removeCourse(Node *tree);
 

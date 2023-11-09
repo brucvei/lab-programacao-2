@@ -4,7 +4,7 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wreturn-type"
-int menu(Node **tree){
+int menu(Node *tree){
     int opcao;
     puts("\nEscolha uma opção:");
     puts("1 - Inserir um curso.");
@@ -45,7 +45,7 @@ int menu(Node **tree){
 #pragma clang diagnostic pop
 
 int main(){
-    Node *tree = createTree();
+    Node *tree;
 
     while (menu(tree) != 0);
 
@@ -53,3 +53,4 @@ int main(){
 
     return 0;
 }
+// https://www.scaler.com/topics/binary-search-tree-program-in-c/

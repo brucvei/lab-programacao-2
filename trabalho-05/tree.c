@@ -162,19 +162,19 @@ void print(Node *root) {
 //    }
 //}
 //
-//void printTree2d(Node *tree, int space) {
-//    if (tree != NULL) {
-//        space += 7;
-//        printTree2d(tree->right, space);
-//        printf("\n");
-//
-//        for (int i = 10; i < space; i++)
-//            printf(" ");
-//
-//        printf("%d\n", tree->code);
-//        printTree2d(tree->left, space);
-//    }
-//}
+void printTree2d(Node *tree, int space) {
+    if (tree != NULL) {
+        space += 7;
+        printTree2d(tree->right, space);
+        printf("\n");
+
+        for (int i = 10; i < space; i++)
+            printf(" ");
+
+        printf("%d\n", tree->course->code);
+        printTree2d(tree->left, space);
+    }
+}
 //// TODO: simplificar essas funções
 //void printTree(Node *tree) {
 //    puts("Printando cursos em forma de árvore...");
@@ -264,22 +264,22 @@ void print(Node *root) {
 //    }
 //}
 //
-//void printAllStudents(Node **tree) {
-//    puts("Listando todos os alunos...");
-//    if (*tree == NULL)
-//        printf("Não há cursos cadastrados!\n");
-//    else {
-//        printStudentCourse(&(*tree)->left);
-//
-//        List *aux = (*tree)->students;
-//        while (aux->student != NULL) {
-//            printOneStudent(*aux->student);
-//            aux = aux->next;
-//        }
-//        printf("Código: %d\n", (*tree)->code);
-//        printf("Nome: %s\n", (*tree)->name);
-//        printf("Centro: %s\n\n", (*tree)->center);
-//
-//        printStudentCourse(&(*tree)->right);
-//    }
-//}
+void printAllStudents(Node **tree) {
+    puts("Listando todos os alunos...");
+    if (*tree == NULL)
+        printf("Não há cursos cadastrados!\n");
+    else {
+        printStudentCourse(&(*tree)->left);
+
+        List *aux = (*tree)->students;
+        while (aux->student != NULL) {
+            printOneStudent(*aux->student);
+            aux = aux->next;
+        }
+        printf("Código: %d\n", (*tree)->code);
+        printf("Nome: %s\n", (*tree)->name);
+        printf("Centro: %s\n\n", (*tree)->center);
+
+        printStudentCourse(&(*tree)->right);
+    }
+}
