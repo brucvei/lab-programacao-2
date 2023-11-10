@@ -54,8 +54,7 @@ Node *putStudentInCourse(Node *tree){
     return tree;
 }
 
-// TODO: ajustar aqui
-Node *removeStudentFromCourse(Node *tree){
+Node *deleteStudentFromCourse(Node *tree){
     int code;
 
     printf("Digite o código do curso: ");
@@ -66,7 +65,7 @@ Node *removeStudentFromCourse(Node *tree){
         return tree;
     }
 
-    deleteStudent(root->students);
+    tree = removeStudentInCourse(tree, code);
     return tree;
 }
 
@@ -87,7 +86,7 @@ void printStudentOfCourse(Node *tree){
         return;
     }
 
-    printf("\n%s - %d\n", tree->name, tree->code);
+    printf("\n\n%s - %d\n", tree->name, tree->code);
     printf("Alunos:\n");
     printStudents(root->students);
 }

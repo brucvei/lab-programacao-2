@@ -82,6 +82,13 @@ Node *insertStudentInCourse(Node *root, int code) {
     return root;
 }
 
+Node *removeStudentInCourse(Node *root, int code){
+    if (code == root->code) root->students = deleteStudent(root->students);
+    else if (code > root->code) root->right = removeStudentInCourse(root->right, code);
+    else root->left = removeStudentInCourse(root->left, code);
+    return root;
+}
+
 void print(Node *tree) {
     if (tree != NULL) {
         print(tree->left);

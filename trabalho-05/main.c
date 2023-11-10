@@ -31,7 +31,7 @@
 //            putStudentInCourse(tree);
 //            return 1;
 //        case 5:
-//            removeStudentFromCourse(tree);
+//            deleteStudentFromCourse(tree);
 //            return 1;
 //        case 6:
 //            printStudentOfCourse(tree);
@@ -79,7 +79,7 @@ int main(){
                 tree = putStudentInCourse(tree);
                 break;
             case 5:
-                tree = removeStudentFromCourse(tree);
+                tree = deleteStudentFromCourse(tree);
                 break;
             case 6:
                 printStudentOfCourse(tree);
