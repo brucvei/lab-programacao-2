@@ -5,15 +5,17 @@
 
 #include "tree.h"
 
-void createCourse(Node *tree);
+// Cria um curso e insere na arvore
+Node *createCourse(Node *tree);
 
-void removeCourse(Node *tree);
+// Remove um curso da arvore
+Node *removeCourse(Node *tree);
+
+Node *putStudentInCourse(Node *tree);
+
+Node *removeStudentFromCourse(Node *tree);
 
 void printCourses(Node *tree);
-
-void putStudentInCourse(Node *tree);
-
-void removeStudentFromCourse(Node *tree);
 
 void printStudentOfCourse(Node *tree);
 

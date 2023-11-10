@@ -28,7 +28,7 @@ typedef struct list {
 
 
 // Cria uma lista vazia
-List *createList();
+//List *createList();
 
 // Retorna o tamanho da lista
 int lengthStudents(List *list);
