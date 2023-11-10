@@ -25,7 +25,7 @@ arvore
     -- insercao
     -- remocao
     -- listar cursos
-    insercao de alunos
+    -- insercao de alunos
     remocao de alunos
     listar alunos de todos os cursos
 lista

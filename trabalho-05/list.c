@@ -3,7 +3,6 @@
 #include "list.h"
 
 int lengthStudents(List *list) {
-    puts("lengthStudents");
     int length = 0;
     while (list != NULL) {
         length++;
@@ -13,7 +12,6 @@ int lengthStudents(List *list) {
 }
 
 void shellSort(List *list, int n) {
-    puts("shellSort");
     int i, j, h;
     List aux;
 
@@ -36,7 +34,6 @@ void shellSort(List *list, int n) {
 }
 
 bool existsStudent(List *list, int id) {
-    puts("existsStudent");
     while (list != NULL) {
         if (list->id == id)
             return true;
@@ -45,30 +42,26 @@ bool existsStudent(List *list, int id) {
     return false;
 }
 
-void printOneStudent(List student) {
-    puts("printOneStudent");
-    printf("Matricula: %d\n", student.id);
-    printf("Nome: %s\n", student.name);
-    printf("Ano de ingresso: %d\n", student.year);
+void printOneStudent(List *student) {
+    printf("%s\n", student->name);
+    printf("%d\t %d\n", student->id, student->year);
 }
 
 void printStudents(List *list) {
     if (list == NULL) {
-        printf("Lista vazia!\n");
+        printf("Nao ha alunos cadastrados!\n");
         return;
     }
     List *aux = list;
 
-    printf("Lista de alunos:\n");
     while (aux != NULL) {
-        printOneStudent(*aux);
+        printf("%d\n", aux->id);
+        printOneStudent(aux);
         aux = list->next;
     }
-
 }
 
 List *insertStudent(List *list) {
-    puts("insertStudent");
     int id, year;
     char name[50];
 

@@ -13,7 +13,7 @@ Node *removeCourse(Node *tree);
 
 Node *putStudentInCourse(Node *tree);
 
-Node *removeStudentFromCourse(Node *tree);
+Node *deleteStudentFromCourse(Node *tree);
 
 void printCourses(Node *tree);
 
@@ -21,4 +21,5 @@ void printStudentOfCourse(Node *tree);
 
 void printStudentsOfAllCourses(Node *tree);
 
+void printMenu();
 #endif //TRABALHO_05_RESOURCES_H

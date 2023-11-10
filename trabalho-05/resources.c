@@ -54,8 +54,7 @@ Node *putStudentInCourse(Node *tree){
     return tree;
 }
 
-// TODO: ajustar aqui
-Node *removeStudentFromCourse(Node *tree){
+Node *deleteStudentFromCourse(Node *tree){
     int code;
 
     printf("Digite o código do curso: ");
@@ -66,7 +65,7 @@ Node *removeStudentFromCourse(Node *tree){
         return tree;
     }
 
-    deleteStudent(root->students);
+    tree = removeStudentInCourse(tree, code);
     return tree;
 }
 
@@ -87,7 +86,7 @@ void printStudentOfCourse(Node *tree){
         return;
     }
 
-    printf("\n%s - %d\n", tree->name, tree->code);
+    printf("\n\n%s - %d\n", tree->name, tree->code);
     printf("Alunos:\n");
     printStudents(root->students);
 }
@@ -99,4 +98,17 @@ void printStudentsOfAllCourses(Node *tree){
     printStudents(tree->students);
     printStudentsOfAllCourses(tree->right);
 }
+
+void printMenu(){
+    puts("\nEscolha uma opção:");
+    puts("1 - Inserir um curso.");
+    puts("2 - Remover um curso.");
+    puts("3 - Listar cursos.");
+    puts("4 - Inserir alunos em um curso.");
+    puts("5 - Remover um aluno de um curso.");
+    puts("6 - Listar alunos de um curso.");
+    puts("7 - Listar todos os alunos e seus cursos.");
+    printf("0 - Terminar programa.\n -> ");
+}
+
 #pragma clang diagnostic pop

@@ -50,6 +50,8 @@ Node *delete(Node *tree, int code);
 
 Node *insertStudentInCourse(Node *root, int code);
 
+Node *removeStudentInCourse(Node *root, int code);
+
 // Printa a arvore em formato de arvore
 void printTree2d(Node *tree, int space);
 

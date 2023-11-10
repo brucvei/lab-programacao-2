@@ -36,7 +36,7 @@ void shellSort(List *list, int n);
 bool existsStudent(List *list, int id);
 
 // Printa um aluno
-void printOneStudent(List student);
+void printOneStudent(List *student);
 
 // Printa toda a lista de alunos
 void printStudents(List *list);
