@@ -93,7 +93,7 @@ int main(){
         }
     } while (opcao != 0);
 
-    freeTree(tree);
+//    freeTree(tree);
 
     return 0;
 }

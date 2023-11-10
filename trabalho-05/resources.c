@@ -10,6 +10,12 @@ Node *createCourse(Node *tree) {
     printf("Digite o código do curso: ");
     scanf("%d", &code);
 
+    Node *course = search(tree, code);
+    if (course != NULL) {
+        printf("Curso já existe!\n");
+        return tree;
+    }
+
     tree = insert(tree, code);
     printf("Curso criado com sucesso!\n");
     return tree;
@@ -28,7 +34,6 @@ Node *removeCourse(Node *tree) {
 
     tree = delete(tree, code);
     printf("Curso removido com sucesso!\n");
-    free(course);
     return tree;
 }
 
@@ -38,15 +43,14 @@ Node *putStudentInCourse(Node *tree){
 
     printf("Digite o código do curso: ");
     scanf("%d", &code);
+
     Node *root = search(tree, code);
     if (root == NULL) {
         printf("Curso não encontrado!\n");
         return tree;
     }
 
-//    root->students =
-            insertStudent(root->students);
-    free(root);
+    tree = insertStudentInCourse(tree, code);
     return tree;
 }
 
@@ -63,7 +67,6 @@ Node *removeStudentFromCourse(Node *tree){
     }
 
     deleteStudent(root->students);
-    free(root);
     return tree;
 }
 
@@ -84,10 +87,9 @@ void printStudentOfCourse(Node *tree){
         return;
     }
 
-    printf("Curso: %d - %s\n", tree->code, tree->name);
+    printf("\n%s - %d\n", tree->name, tree->code);
     printf("Alunos:\n");
     printStudents(root->students);
-    free(root);
 }
 
 void printStudentsOfAllCourses(Node *tree){

@@ -15,14 +15,10 @@
  * next -> ponteiro para o proximo aluno
 */
 
-typedef struct student {
+typedef struct list {
     int id;
     char name[50];
     int year;
-} Student;
-
-typedef struct list {
-    Student *student;
     struct list *next;
 } List;
 
@@ -40,16 +36,16 @@ void shellSort(List *list, int n);
 bool existsStudent(List *list, int id);
 
 // Printa um aluno
-void printOneStudent(Student student);
+void printOneStudent(List student);
 
 // Printa toda a lista de alunos
 void printStudents(List *list);
 
 // Inserer um aluno na lista
-void insertStudent(List *list);
+List *insertStudent(List *list);
 
 // Deleta um aluno da lista
-void deleteStudent(List *list);
+List *deleteStudent(List *list);
 
 // Libera o espaço alocado para a lista
 void freeList(List *list);

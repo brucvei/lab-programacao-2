@@ -25,7 +25,7 @@ void shellSort(List *list, int n) {
             aux = list[i];
             j = i;
 
-            while (j >= h && aux.student->id < list[j - h].student->id) {
+            while (j >= h && aux.id < list[j - h].id) {
                 list[j] = list[j - h];
                 j = j - h;
             }
@@ -38,14 +38,14 @@ void shellSort(List *list, int n) {
 bool existsStudent(List *list, int id) {
     puts("existsStudent");
     while (list != NULL) {
-        if (list->student->id == id)
+        if (list->id == id)
             return true;
         list = list->next;
     }
     return false;
 }
 
-void printOneStudent(Student student) {
+void printOneStudent(List student) {
     puts("printOneStudent");
     printf("Matricula: %d\n", student.id);
     printf("Nome: %s\n", student.name);
@@ -53,68 +53,74 @@ void printOneStudent(Student student) {
 }
 
 void printStudents(List *list) {
-    puts("printStudents");
-    puts("Listando todos os alunos...");
-    Student *aux = list->student;
-    if (aux == NULL) {
+    if (list == NULL) {
         printf("Lista vazia!\n");
         return;
     }
+    List *aux = list;
 
     printf("Lista de alunos:\n");
     while (aux != NULL) {
         printOneStudent(*aux);
-        aux = list->next->student;
+        aux = list->next;
     }
 
 }
 
-void insertStudent(List *list) {
+List *insertStudent(List *list) {
     puts("insertStudent");
     int id, year;
     char name[50];
 
     printf("Digite a matrícula do aluno: ");
     scanf("%d", &id);
-    printf("Digite o nome do aluno: ");
-    scanf(" %[^\n]s", name);
-    printf("Digite o ano de ingresso do aluno: ");
-    scanf("%d", &year);
 
     if (existsStudent(list, id)) {
         printf("Matrícula já cadastrada!\n");
-        return;
+        return list;
     }
+
+    fflush(stdin);
+    printf("Digite o nome do aluno: ");
+    getchar();
+    scanf(" %[^\n]s", name);
+    fflush(stdin);
+    printf("Digite o ano de ingresso do aluno: ");
+    scanf("%d", &year);
+
     List *new = (List *) malloc(sizeof(List));
-    Student *student = (Student *) malloc(sizeof(Student));
-    student->id = id;
-    strcpy(student->name, name);
-    student->year = year;
-    new->student = student;
+    new->id = id;
+    strcpy(new->name, name);
+    new->year = year;
     new->next = list;
     list = new;
     printf("Aluno inserido com sucesso!\n");
-    shellSort(list, lengthStudents(list));
+    if (lengthStudents(list) > 1)
+        shellSort(list, lengthStudents(list));
+
+    return list;
 }
 
-void deleteStudent(List *list) {
+List *deleteStudent(List *list) {
     puts("deleteStudent");
     List *aux = list;
     List *prev = NULL;
     int id;
 
+    if (aux == NULL) {
+        printf("Lista vazia!\n");
+        return NULL;
+    }
+
     printf("Digite a matricula do aluno: ");
     scanf("%d", &id);
 
-    if (aux == NULL) {
-        printf("Lista vazia!\n");
-        return;
-    } else if (!existsStudent(list, id)) {
+    if (!existsStudent(aux, id)) {
         printf("Matrícula não cadastrada!\n");
-        return;
+        return aux;
     }
 
-    while (aux != NULL && aux->student->id != id) {
+    while (aux != NULL && aux->id != id) {
         prev = aux;
         aux = aux->next;
     }
@@ -122,7 +128,7 @@ void deleteStudent(List *list) {
     prev->next = aux->next;
 
     printf("Aluno removido com sucesso!\n");
-    free(aux);
+    return aux;
 }
 
 void freeList(List *list) {

@@ -40,15 +40,20 @@ Node *newNode(int code);
 Node *insert(Node *root, int code);
 
 // Procura um nó na arvore pelo seu código
-Node *search(Node *root, int x);
+Node *search(Node *tree, int x);
 
-// Deleta um nó da arvore
-Node *delete(Node *root, int x);
+// Deleta um nó da arvore:
+/* caso o nó não tenha filhos ele só remove o nó;
+ * caso o nó possua só um filho, ele remove e ajusta os ponteiros;
+ * caso o nó possui dois filhos, ele vai substituindo o valor com o filho da direita até a folha.*/
+Node *delete(Node *tree, int code);
+
+Node *insertStudentInCourse(Node *root, int code);
 
 // Printa a arvore em formato de arvore
 void printTree2d(Node *tree, int space);
 
 // Printa a arvore em formato de lista
-void print(Node *root);
+void print(Node *tree);
 
 #endif //TRABALHO_05_TREE_H

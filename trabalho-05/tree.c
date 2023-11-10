@@ -3,7 +3,6 @@
 #include "tree.h"
 
 Node *newNode(int code) {
-    puts("newNode");
     char name[50], center[50];
 
     fflush(stdin);
@@ -18,7 +17,6 @@ Node *newNode(int code) {
     scanf("%[^\n]", center);
     fflush(stdin);
 
-    puts("Criando curso...");
     Node *temp = (Node *) malloc(sizeof(Node));
     if (temp == NULL) {
         printf("Erro ao alocar memória!\n");
@@ -31,59 +29,68 @@ Node *newNode(int code) {
     temp->left = NULL;
     temp->right = NULL;
     temp->students = NULL;
-//    printf("%d\n%s\n%s\n", temp->code, temp->name, temp->center);
     return temp;
 }
 
 Node *insert(Node *root, int code) {
-    puts("insert");
     if (root == NULL) return newNode(code);
     else if (code > root->code) root->right = insert(root->right, code);
     else root->left = insert(root->left, code);
     return root;
 }
 
-Node *delete(Node *root, int x) {
+Node *delete(Node *tree, int code) {
     puts("delete");
-    if (root == NULL) return NULL;
-    if (x > root->code) root->right = delete(root->right, x);
-    else if (x < root->code) root->left = delete(root->left, x);
+    if (tree == NULL) return NULL;
+    if (code > tree->code) tree->right = delete(tree->right, code);
+    else if (code < tree->code) tree->left = delete(tree->left, code);
     else {
-        if (root->left == NULL && root->right == NULL) {
-            free(root);
+        if (tree->left == NULL && tree->right == NULL) {
+            free(tree);
             return NULL;
-        } else if (root->left == NULL || root->right == NULL) {
+        } else if (tree->left == NULL || tree->right == NULL) {
             Node *temp;
-            if (root->left == NULL) temp = root->right;
-            else temp = root->left;
-            free(root);
+            if (tree->left == NULL) temp = tree->right;
+            else temp = tree->left;
+            free(tree);
             return temp;
         } else {
-            Node *temp = minimum(root->right);
-//            root->course = temp->course;
-            root->right = delete(root->right, temp->code);
+            Node *temp = minimum(tree->right);
+            tree->code = temp->code;
+            printf("%d\n", temp->code);
+            printf("%s\n", temp->name);
+            printf("%s\n", temp->center);
+            strcpy(tree->name, temp->name);
+            strcpy(tree->center, temp->center);
+            tree->students = temp->students;
+            tree->right = delete(tree->right, temp->code);
         }
     }
+    return tree;
+}
+
+Node *search(Node *tree, int x) {
+    if (tree == NULL || tree->code == x) return tree;
+    else if (x > tree->code) return search(tree->right, x);
+    else return search(tree ->left, x);
+}
+
+Node *insertStudentInCourse(Node *root, int code) {
+    if (code == root->code) root->students = insertStudent(root->students);
+    else if (code > root->code) root->right = insertStudentInCourse(root->right, code);
+    else root->left = insertStudentInCourse(root->left, code);
     return root;
 }
 
-Node *search(Node *root, int x) {
-    puts("search");
-    if (root == NULL || root->code == x) return root;
-    else if (x > root->code) return search(root->right, x);
-    else return search(root ->left, x);
-}
-
-void print(Node *root) {
-    if (root != NULL) {
-        print(root->left);
-        printf("%s \n%s \t%d \n\n", root->name, root->center, root->code);
-        print(root->right);
+void print(Node *tree) {
+    if (tree != NULL) {
+        print(tree->left);
+        printf("%s \n%s \t%d \n\n", tree->name, tree->center, tree->code);
+        print(tree->right);
     }
 }
 
 Node *minimum(Node *root) {
-    puts("minimum");
     if (root == NULL) return NULL;
     else if (root->left != NULL) return minimum(root->left);
     return root;

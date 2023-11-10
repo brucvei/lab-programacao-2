@@ -20,3 +20,15 @@ lista de alunos (ordenada por matricula):
 4. impressão da lista de alunos matriculados em um determinado curso (informado pelo usuário);
 5. impressão dos dados de vínculos entre alunos e cursos, incluindo: número de matrícula, nome do aluno,
    nome do curso que o aluno está vinculado e o respectivo centro do curso.
+
+arvore
+    -- insercao
+    -- remocao
+    -- listar cursos
+    insercao de alunos
+    remocao de alunos
+    listar alunos de todos os cursos
+lista
+    insercao
+    remocao
+    listar alunos por curso
