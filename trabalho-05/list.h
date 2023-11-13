@@ -30,7 +30,7 @@ typedef struct list {
 int lengthStudents(List *list);
 
 // Ordena a lista por id (matrícula) do aluno
-void shellSort(List *list, int n);
+List *sort(List *list, int n);
 
 // Verifica se um aluno existe na lista
 bool existsStudent(List *list, int id);

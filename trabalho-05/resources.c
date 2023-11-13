@@ -86,7 +86,7 @@ void printStudentOfCourse(Node *tree){
         return;
     }
 
-    printf("\n\n%s - %d\n", tree->name, tree->code);
+    printf("\n\n%s %d\n", root->name, root->code);
     printf("Alunos:\n");
     printStudents(root->students);
 }
@@ -94,8 +94,8 @@ void printStudentOfCourse(Node *tree){
 void printStudentsOfAllCourses(Node *tree){
     if (tree == NULL) return;
     printStudentsOfAllCourses(tree->left);
-    printf("%s\n%d - %s\n", tree->name, tree->code, tree->center);
-    printStudents(tree->students);
+    printf("\n\n%s %d\n", tree->name, tree->code);
+    printf("Alunos:\n");
     printStudentsOfAllCourses(tree->right);
 }
 

@@ -40,7 +40,6 @@ Node *insert(Node *root, int code) {
 }
 
 Node *delete(Node *tree, int code) {
-    puts("delete");
     if (tree == NULL) return NULL;
     if (code > tree->code) tree->right = delete(tree->right, code);
     else if (code < tree->code) tree->left = delete(tree->left, code);
@@ -57,9 +56,6 @@ Node *delete(Node *tree, int code) {
         } else {
             Node *temp = minimum(tree->right);
             tree->code = temp->code;
-            printf("%d\n", temp->code);
-            printf("%s\n", temp->name);
-            printf("%s\n", temp->center);
             strcpy(tree->name, temp->name);
             strcpy(tree->center, temp->center);
             tree->students = temp->students;

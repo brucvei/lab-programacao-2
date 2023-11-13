@@ -26,9 +26,6 @@ arvore
     -- remocao
     -- listar cursos
     -- insercao de alunos
+         to ajustando a ordenação
     remocao de alunos
-    listar alunos de todos os cursos
-lista
-    insercao
-    remocao
-    listar alunos por curso
+    -- listar alunos de todos os cursos
