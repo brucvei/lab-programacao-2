@@ -28,7 +28,7 @@ Node *newNode(int code) {
     strcpy(temp->center, center);
     temp->left = NULL;
     temp->right = NULL;
-    temp->students = NULL;
+    temp->students = createList();
     return temp;
 }
 
@@ -72,14 +72,14 @@ Node *search(Node *tree, int x) {
 }
 
 Node *insertStudentInCourse(Node *root, int code) {
-    if (code == root->code) root->students = insertStudent(root->students);
+    if (code == root->code) root->students = insertStudent(&root->students);
     else if (code > root->code) root->right = insertStudentInCourse(root->right, code);
     else root->left = insertStudentInCourse(root->left, code);
     return root;
 }
 
 Node *removeStudentInCourse(Node *root, int code){
-    if (code == root->code) root->students = deleteStudent(root->students);
+    if (code == root->code) root->students = deleteStudent(&root->students);
     else if (code > root->code) root->right = removeStudentInCourse(root->right, code);
     else root->left = removeStudentInCourse(root->left, code);
     return root;

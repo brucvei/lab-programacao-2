@@ -1,5 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "cert-err34-c"
 // Bruna Caetano, Lucas Jost e Bruno Cantarelli - SI
 
 #include "resources.h"
@@ -88,7 +86,7 @@ void printStudentOfCourse(Node *tree){
 
     printf("\n\n%s %d\n", root->name, root->code);
     printf("Alunos:\n");
-    printStudents(root->students);
+    printStudents(&root->students);
 }
 
 void printStudentsOfAllCourses(Node *tree){
@@ -96,6 +94,7 @@ void printStudentsOfAllCourses(Node *tree){
     printStudentsOfAllCourses(tree->left);
     printf("\n\n%s %d\n", tree->name, tree->code);
     printf("Alunos:\n");
+    printStudents(&tree->students);
     printStudentsOfAllCourses(tree->right);
 }
 
@@ -110,5 +109,3 @@ void printMenu(){
     puts("7 - Listar todos os alunos e seus cursos.");
     printf("0 - Terminar programa.\n -> ");
 }
-
-#pragma clang diagnostic pop
