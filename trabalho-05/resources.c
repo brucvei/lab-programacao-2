@@ -86,15 +86,15 @@ void printStudentOfCourse(Node *tree){
 
     printf("\n\n%s %d\n", root->name, root->code);
     printf("Alunos:\n");
-    printStudents(&root->students);
+    printStudents(root->students);
 }
 
 void printStudentsOfAllCourses(Node *tree){
     if (tree == NULL) return;
     printStudentsOfAllCourses(tree->left);
     printf("\n\n%s %d\n", tree->name, tree->code);
-    printf("Alunos:\n");
-    printStudents(&tree->students);
+    printf("Alunos:");
+    printStudents(tree->students);
     printStudentsOfAllCourses(tree->right);
 }
 

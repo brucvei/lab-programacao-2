@@ -10,7 +10,7 @@ int main(){
         printMenu();
         scanf("%d", &opcao);
 
-        switch (opcao) { // NOLINT(*-multiway-paths-covered)
+        switch (opcao) {
             case 1:
                 tree = createCourse(tree);
                 break;

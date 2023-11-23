@@ -14,10 +14,6 @@
  * right    -> ponteiro para o filho direito
 */
 
-//typedef struct course {
-//
-//} Course;
-
 typedef struct node {
     int code;
     char name[50];
@@ -48,8 +44,10 @@ Node *search(Node *tree, int x);
  * caso o nó possui dois filhos, ele vai substituindo o valor com o filho da direita até a folha.*/
 Node *delete(Node *tree, int code);
 
+// Insere um aluno na lista de alunos de um curso
 Node *insertStudentInCourse(Node *root, int code);
 
+// Remove um aluno da lista de alunos de um curso
 Node *removeStudentInCourse(Node *root, int code);
 
 // Printa a arvore em formato de arvore

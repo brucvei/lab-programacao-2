@@ -26,26 +26,26 @@ typedef struct list {
 // Cria uma lista vazia
 List *createList();
 
+// Verifica se está vazia
+bool isEmpty(List *list);
+
 // Retorna o tamanho da lista
 int lengthStudents(List *list);
 
-// Ordena a lista por id (matrícula) do aluno
-List *sort(List **list, int n);
-
 // Verifica se um aluno existe na lista
-bool existsStudent(List **list, int id);
+bool existsStudent(List *list, int id);
 
 // Printa um aluno
 void printOneStudent(List *student);
 
 // Printa toda a lista de alunos
-void printStudents(List **list);
+void printStudents(List *list);
 
 // Inserer um aluno na lista
 List *insertStudent(List *list);
 
 // Deleta um aluno da lista
-List *deleteStudent(List **list);
+List *deleteStudent(List *list);
 
 // Libera o espaço alocado para a lista
 void freeList(List *list);
