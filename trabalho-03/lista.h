@@ -4,88 +4,55 @@
 #ifndef TRABALHO_03_LISTA_H
 #define TRABALHO_03_LISTA_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
-#include "manipulacao-datas.h"
+#include "locacoes.h"
 
-// Structs
-typedef struct veiculo {
-    char placa[8];
-    char marca[20];
-    char modelo[20];
-    int ano;
-    float km;
-    float valor;
-    bool disponibilidade;
-} Veiculo;
-
-typedef struct cliente {
-    char cnh[12];
-    char nome[20];
-    char telefone[12];
-} Cliente;
-
-typedef struct locacao {
-    Cliente cliente;
-    Veiculo veiculo;
-    Date retirada;
-    Date devolucao;
-    float valor;
-} Locacao;
-
-// Listas encadeaddas
+// Listas
 typedef struct lista {
-    Veiculo veiculo;
+    Carro veiculo;
     struct lista *prox;
-} ListaVeiculo;
+} Veiculos;
 
 typedef struct lista2 {
-    Cliente cliente;
+    Pessoa cliente;
     struct lista2 *prox;
-} ListaCliente;
+} Clientes;
 
 typedef struct lista3 {
-    Locacao locacao;
+    Aluguel locacao;
     struct lista3 *prox;
-} ListaLocacao;
+} Locacoes;
 
 // Funções auxiliares
-ListaVeiculo *inicializarVeiculos(void);
-ListaCliente *inicializarClientes(void);
-ListaLocacao *inicializarLocacoes(void);
+Veiculos *inicializarVeiculos(void);
+Clientes *inicializarClientes(void);
+Locacoes *inicializarLocacoes(void);
 
-Veiculo *encontrarVeiculo(ListaVeiculo *listaVeiculos, char placa[]);
-Cliente *encontrarCliente(ListaCliente *listaClientes, char cnh[]);
+Carro *encontrarVeiculo(Veiculos *veiculos, char placa[]);
+Pessoa *encontrarCliente(Clientes *clientes, char cnh[]);
 
-int tamanhoLista(ListaVeiculo *listaVeiculo);
-
-void printarVeiculo(Veiculo *veiculo);
-void printarCliente(Cliente *cliente);
-void printarLocacao(Locacao *locacao);
+int tamanhoLista(Veiculos *veiculos);
 
 // Funções principais
 /* Cadastras veículo na lista */
-void cadastrarVeiculo(ListaVeiculo **listaVeiculos);
-
-/* Lista todos os veículos */
-void listarVeiculos(ListaVeiculo *listaVeiculos);
+Veiculos *cadastrarVeiculo(Veiculos *veiculos);
 
 /* Cadastras clientes na lista */
-void cadastrarCliente(ListaCliente **listaClientes);
-
-/* Lista todos os clientes */
-void listarClientes(ListaCliente *listaClientes);
+Clientes *cadastrarCliente(Clientes *clientes);
 
 /* Locar um veículos */
-void locarVeiculo(ListaLocacao **listaLocacoes, ListaVeiculo **listaVeiculos, ListaCliente **listaClientes);
+Locacoes *locarVeiculo(Locacoes *locacoes, Veiculos *veiculos, Clientes *clientes);
 
 /* Devolver um veículo */
-void devolverVeiculo(ListaVeiculo **listaVeiculos, ListaLocacao **listaLocacoes);
+Locacoes *devolverVeiculo(Veiculos *veiculos, Locacoes *locacoes);
+
+/* Lista todos os veículos */
+void listarVeiculos(Veiculos *veiculos);
+
+/* Lista todos os clientes */
+void listarClientes(Clientes *clientes);
 
 /* Listar todas as locações */
-void listarLocacoes(ListaLocacao *listaLocacoes);
+void listarLocacoes(Locacoes *locacoes);
 
 
 #endif //TRABALHO_03_LISTA_H

@@ -2,14 +2,14 @@
 
 #include "menu.h"
 
-void listasLocacoesAtivas(ListaLocacao *listaLocacoes) {
+void listasLocacoesAtivas(Locacoes *listaLocacoes) {
     Date dataInicial, dataFinal;
     int achou = 0;
     printf("Data inicial (DD MM AAAA): ");
     scanf("%d %d %d", &dataInicial.day, &dataInicial.month, &dataInicial.year);
     printf("Data final (DD MM AAAA): ");
     scanf("%d %d %d", &dataFinal.day, &dataFinal.month, &dataFinal.year);
-    ListaLocacao *aux = listaLocacoes;
+    Locacoes *aux = listaLocacoes;
     printf("\nLocações ativas no período de %d/%d/%d a %d/%d/%d:\n", dataInicial.day, dataInicial.month,
            dataInicial.year, dataFinal.day, dataFinal.month, dataFinal.year);
     while (aux != NULL) {
@@ -24,14 +24,14 @@ void listasLocacoesAtivas(ListaLocacao *listaLocacoes) {
     }
 }
 
-void listarLocacoesCliente(ListaLocacao *listaLocacoes, ListaCliente *listaClientes) {
+void listarLocacoesCliente(Locacoes *listaLocacoes, Clientes *listaClientes) {
     puts("\nLocações por cliente: ");
-    Cliente cliente;
+    Pessoa cliente;
     printf("CNH: ");
     scanf("%s", cliente.cnh);
-    ListaLocacao *aux = listaLocacoes;
+    Locacoes *aux = listaLocacoes;
     if (encontrarCliente(listaClientes, cliente.cnh) == NULL) {
-        puts("Cliente não cadastrado!");
+        puts("Pessoa não cadastrado!");
     } else {
         printf("Locações do cliente %s:\n", cliente.cnh);
         while (aux != NULL) {
@@ -43,14 +43,14 @@ void listarLocacoesCliente(ListaLocacao *listaLocacoes, ListaCliente *listaClien
     }
 }
 
-void listarFaturamentoMensal(ListaLocacao *listaLocacoes) {
+void listarFaturamentoMensal(Locacoes *listaLocacoes) {
     puts("\nFaturamento da locadora:");
     int mes, ano;
     printf("Insira o mês: ");
     scanf("%d", &mes);
     printf("Insira o ano: ");
     scanf("%d", &ano);
-    ListaLocacao *aux = listaLocacoes;
+    Locacoes *aux = listaLocacoes;
     float faturamento = 0;
     if (aux[0].locacao.valor == 0.00) {
         puts("Nenhuma locação cadastrada!");
@@ -65,10 +65,10 @@ void listarFaturamentoMensal(ListaLocacao *listaLocacoes) {
     printf("Faturamento: %.2f\n", faturamento);
 }
 
-void listarVeiculosMaisRodados(ListaVeiculo *listaVeiculos) {
+void listarVeiculosMaisRodados(Veiculos *listaVeiculos) {
     puts("\nListar os 3 veículos mais rodados:");
-    ListaVeiculo *aux = listaVeiculos;
-    ListaVeiculo *maisRodado = listaVeiculos;
+    Veiculos *aux = listaVeiculos;
+    Veiculos *maisRodado = listaVeiculos;
     int length = tamanhoLista(listaVeiculos);
     if (length >= 1 && strcmp(aux->veiculo.placa, "") != 0) {
         while (strcmp(aux->veiculo.placa, "") != 0) {
@@ -81,7 +81,7 @@ void listarVeiculosMaisRodados(ListaVeiculo *listaVeiculos) {
 
         if (length >= 2) {
             aux = listaVeiculos;
-            ListaVeiculo *segundoMaisRodado = listaVeiculos;
+            Veiculos *segundoMaisRodado = listaVeiculos;
             while (strcmp(aux->veiculo.placa, "") != 0) {
                 if (aux->veiculo.km > segundoMaisRodado->veiculo.km && aux->veiculo.km < maisRodado->veiculo.km) {
                     segundoMaisRodado = aux;
@@ -92,7 +92,7 @@ void listarVeiculosMaisRodados(ListaVeiculo *listaVeiculos) {
 
             if (length >= 3) {
                 aux = listaVeiculos;
-                ListaVeiculo *terceiroMaisRodado = listaVeiculos;
+                Veiculos *terceiroMaisRodado = listaVeiculos;
                 while (strcmp(aux->veiculo.placa, "") != 0) {
                     if (aux->veiculo.km > terceiroMaisRodado->veiculo.km &&
                         aux->veiculo.km < segundoMaisRodado->veiculo.km) {
@@ -112,9 +112,9 @@ void listarVeiculosMaisRodados(ListaVeiculo *listaVeiculos) {
     }
 }
 
-void listarVeiculosDisponiveis(ListaVeiculo *listaVeiculos) {
+void listarVeiculosDisponiveis(Veiculos *listaVeiculos) {
     puts("\nVeículos disponíveis: ");
-    ListaVeiculo *aux = listaVeiculos;
+    Veiculos *aux = listaVeiculos;
     if (strcmp(aux[0].veiculo.placa, "") == 0) {
         puts("Nenhum veículo encontrado!");
     } else {
@@ -127,7 +127,7 @@ void listarVeiculosDisponiveis(ListaVeiculo *listaVeiculos) {
     }
 }
 
-void menuListas(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, ListaVeiculo **listaVeiculos) {
+void menuListas(Locacoes *listaLocacoes, Clientes *listaClientes, Veiculos *listaVeiculos) {
     puts("\nEscolha uma opção:");
     int opcao;
     printf("1 - Cadastrar veículo\n");
@@ -145,13 +145,13 @@ void menuListas(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, List
             cadastrarVeiculo(listaVeiculos);
             break;
         case 2:
-            listarVeiculos(*listaVeiculos);
+            listarVeiculos(listaVeiculos);
             break;
         case 3:
             cadastrarCliente(listaClientes);
             break;
         case 4:
-            listarClientes(*listaClientes);
+            listarClientes(listaClientes);
             break;
         case 5:
             locarVeiculo(listaLocacoes, listaVeiculos, listaClientes);
@@ -160,7 +160,7 @@ void menuListas(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, List
             devolverVeiculo(listaVeiculos, listaLocacoes);
             break;
         case 7:
-            listarLocacoes(*listaLocacoes);
+            listarLocacoes(listaLocacoes);
             break;
         case 0:
             menuPrincipal(listaLocacoes, listaClientes, listaVeiculos);
@@ -168,7 +168,7 @@ void menuListas(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, List
     }
 }
 
-void menuRelatorios(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, ListaVeiculo **listaVeiculos) {
+void menuRelatorios(Locacoes *listaLocacoes, Clientes *listaClientes, Veiculos *listaVeiculos) {
     puts("\nEscolha uma opção:");
     int opcao;
     printf("1 - Listar locações ativas em um período de tempo\n");
@@ -181,19 +181,19 @@ void menuRelatorios(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, 
     scanf("%d", &opcao);
     switch (opcao) {
         case 1:
-            listasLocacoesAtivas(*listaLocacoes);
+            listasLocacoesAtivas(listaLocacoes);
             break;
         case 2:
-            listarLocacoesCliente(*listaLocacoes, *listaClientes);
+            listarLocacoesCliente(listaLocacoes, listaClientes);
             break;
         case 3:
-            listarFaturamentoMensal(*listaLocacoes);
+            listarFaturamentoMensal(listaLocacoes);
             break;
         case 4:
-            listarVeiculosMaisRodados(*listaVeiculos);
+            listarVeiculosMaisRodados(listaVeiculos);
             break;
         case 5:
-            listarVeiculosDisponiveis(*listaVeiculos);
+            listarVeiculosDisponiveis(listaVeiculos);
             break;
         case 0:
             menuPrincipal(listaLocacoes, listaClientes, listaVeiculos);
@@ -201,7 +201,7 @@ void menuRelatorios(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, 
     }
 }
 
-int menuPrincipal(ListaLocacao **listaLocacoes, ListaCliente **listaClientes, ListaVeiculo **listaVeiculos) {
+int menuPrincipal(Locacoes *listaLocacoes, Clientes *listaClientes, Veiculos *listaVeiculos) {
     puts("\nEscolha uma opção:");
     int opcao;
     printf("1 - Listas\n");
